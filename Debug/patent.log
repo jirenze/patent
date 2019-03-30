@@ -1,0 +1,6 @@
+﻿  main.cpp
+  patent.cpp
+c:\users\dabanjia\desktop\patent\patent\patent.cpp(262): warning C4018: “<”: 有符号/无符号不匹配
+c:\users\dabanjia\desktop\patent\patent\patent.cpp(313): warning C4018: “<”: 有符号/无符号不匹配
+  正在生成代码...
+  patent.vcxproj -> C:\Users\dabanjia\Desktop\patent\patent\Debug\patent.exe
