@@ -70,7 +70,7 @@ void Patent::WriteCSV()
 		<< "current_num_of_patent" << ','
 		<< "type_of_application" << endl;
 
-	for (auto&max_socre : max_complete_socre)
+	for (auto& max_socre : max_complete_socre)
 	{
 		out_file << max_socre << ',';
 	}
