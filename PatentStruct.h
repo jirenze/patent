@@ -117,6 +117,7 @@ enum Enum_Patent
 	/** 引证外国专利数 */
 	E_citation_of_foreign_num,
 
+
 	/** 专利类别 */
 	E_patent_type,
 
@@ -134,6 +135,7 @@ enum Enum_Patent
 
 	/** 同族专利数 */
 	E_kin_num,
+
 
 	/** 同族布局国家、地区数 */
 	E_kin_of_country_num,
@@ -360,4 +362,11 @@ struct Transfer_Data
 
 	/** D最大值 */
 	double first_max_d;
+};
+
+struct RValueCL
+{
+	Enum_Patent first_value; 
+	Enum_Patent second_value;
+	double r_value;
 };
