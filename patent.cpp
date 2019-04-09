@@ -2183,6 +2183,244 @@ void Patent::CalculateDifference()
 	}
 }
 
+void Patent::CalculateAverage()
+{
+	/** 说明书页数 */
+	double temp_total = 0.0f;
+	for (auto& instruction_num : vector_instruction_num)
+	{
+		temp_total += instruction_num->instruction_num;
+	}
+	temp_total /= vector_instruction_num.size();
+	R_average.insert(make_pair(E_instruction_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 附图个数 */
+	for (auto& image_num : vector_image_num)
+	{
+		temp_total += image_num->image_num;
+	}
+	temp_total /= vector_image_num.size();
+	R_average.insert(make_pair(E_image_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 文献引证数 */
+	for (auto& non_patent_citation_num : vector_non_patent_citation_num)
+	{
+		temp_total += non_patent_citation_num->non_patent_citation_num;
+	}
+	temp_total /= vector_non_patent_citation_num.size();
+	R_average.insert(make_pair(E_non_patent_citation_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 专利引证数 */
+	for (auto& citation_num : vector_citation_num)
+	{
+		temp_total += citation_num->citation_num;
+	}
+	temp_total /= vector_citation_num.size();
+	R_average.insert(make_pair(E_citation_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 引证本国专利数*/
+	for (auto& citation_of_domestic_num : vector_citation_of_domestic_num)
+	{
+		temp_total += citation_of_domestic_num->citation_of_domestic_num;
+	}
+	temp_total /= vector_citation_of_domestic_num.size();
+	R_average.insert(make_pair(E_citation_of_domestic_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 引证外国专利数 */
+	for (auto& citation_of_foreign_num : vector_citation_of_foreign_num)
+	{
+		temp_total += citation_of_foreign_num->citation_of_foreign_num;
+	}
+	temp_total /= vector_citation_of_foreign_num.size();
+	R_average.insert(make_pair(E_citation_of_foreign_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 专利类别 */
+	for (auto& patent_type : vector_patent_type)
+	{
+		temp_total += patent_type->patent_type;
+	}
+	temp_total /= vector_patent_type.size();
+	R_average.insert(make_pair(E_patent_type, temp_total));
+	temp_total = 0.0f;
+
+	/** 保护期 */
+	for (auto& term_of_patent_protection : vector_term_of_patent_protection)
+	{
+		temp_total += term_of_patent_protection->term_of_patent_protection;
+	}
+	temp_total /= vector_term_of_patent_protection.size();
+	R_average.insert(make_pair(E_term_of_patent_protection, temp_total));
+	temp_total = 0.0f;
+
+	/** 分类数 */
+	for (auto& classify_num : vector_classify_num)
+	{
+		temp_total += classify_num->classify_num;
+	}
+	temp_total /= vector_classify_num.size();
+	R_average.insert(make_pair(E_classify_num, temp_total));
+	temp_total = 0.0f;
+
+	/** IPC大类数 */
+	for (auto& IPC_large_classify_num : vector_IPC_large_classify_num)
+	{
+		temp_total += IPC_large_classify_num->IPC_large_classify_num;
+	}
+	temp_total /= vector_IPC_large_classify_num.size();
+	R_average.insert(make_pair(E_IPC_large_classify_num, temp_total));
+	temp_total = 0.0f;
+
+	/** IPC小类数 */
+	for (auto& IPC_sub_classify_num : vector_IPC_sub_classify_num)
+	{
+		temp_total += IPC_sub_classify_num->IPC_sub_classify_num;
+	}
+	temp_total /= vector_IPC_sub_classify_num.size();
+	R_average.insert(make_pair(E_IPC_sub_classify_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 同族专利数 */
+	for (auto& kin_num : vector_kin_num)
+	{
+		temp_total += kin_num->kin_num;
+	}
+	temp_total /= vector_kin_num.size();
+	R_average.insert(make_pair(E_kin_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 同族布局国家、地区数 */
+	for (auto& kin_of_country_num : vector_kin_of_country_num)
+	{
+		temp_total += kin_of_country_num->kin_of_country_num;
+	}
+	temp_total /= vector_kin_of_country_num.size();
+	R_average.insert(make_pair(E_kin_of_country_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 是否为PCT申请 */
+	for (auto& PCT_apply : vector_PCT_apply)
+	{
+		temp_total += PCT_apply->PCT_apply;
+	}
+	temp_total /= vector_PCT_apply.size();
+	R_average.insert(make_pair(E_PCT_apply, temp_total));
+	temp_total = 0.0f;
+
+	/** 是否为五国专利/四方专利 */
+	for (auto& five_four_countries_patent : vector_five_four_countries_patent)
+	{
+		temp_total += five_four_countries_patent->five_four_countries_patent;
+	}
+	temp_total /= vector_five_four_countries_patent.size();
+	R_average.insert(make_pair(E_five_four_countries_patent, temp_total));
+	temp_total = 0.0f;
+
+	/** 专利国别代码 */
+	for (auto& country_code : vector_country_code)
+	{
+		temp_total += country_code->country_code;
+	}
+	temp_total /= vector_country_code.size();
+	R_average.insert(make_pair(E_country_code, temp_total));
+	temp_total = 0.0f;
+
+	/** 申请日公开日时间间隔（年）*/
+	for (auto& application_open_day_interval : vector_application_open_day_interval)
+	{
+		temp_total += application_open_day_interval->application_open_day_interval;
+	}
+	temp_total /= vector_application_open_day_interval.size();
+	R_average.insert(make_pair(E_application_open_day_interval, temp_total));
+	temp_total = 0.0f;
+
+	/** 申请日授权日时间间隔 */
+	for (auto& application_authorization_day_interval : vector_application_authorization_day_interval)
+	{
+		temp_total += application_authorization_day_interval->application_authorization_day_interval;
+	}
+	temp_total /= vector_application_authorization_day_interval.size();
+	R_average.insert(make_pair(E_application_authorization_day_interval, temp_total));
+	temp_total = 0.0f;
+
+	/** 公开日授权日时间间隔 */
+	for (auto& open_authorization_day_interval : vector_open_authorization_day_interval)
+	{
+		temp_total += open_authorization_day_interval->open_authorization_day_interval;
+	}
+	temp_total /= vector_open_authorization_day_interval.size();
+	R_average.insert(make_pair(E_open_authorization_day_interval, temp_total));
+	temp_total = 0.0f;
+
+	/** 剩余有效期 */
+	for (auto& survival_time : vector_survival_time)
+	{
+		temp_total += survival_time->survival_time;
+	}
+	temp_total /= vector_survival_time.size();
+	R_average.insert(make_pair(E_survival_time, temp_total));
+	temp_total = 0.0f;
+
+	/** 是否有优先权 */
+	for (auto& prority : vector_prority)
+	{
+		temp_total += prority->prority;
+	}
+	temp_total /= vector_prority.size();
+	R_average.insert(make_pair(E_prority, temp_total));
+	temp_total = 0.0f;
+
+	/** 权项数 */
+	for (auto& right_num : vector_right_num)
+	{
+		temp_total += right_num->right_num;
+	}
+	temp_total /= vector_right_num.size();
+	R_average.insert(make_pair(E_right_num, temp_total));
+	temp_total = 0.0f;
+
+	/** 发明人数 */
+	for (auto& num_of_invention : vector_num_of_invention)
+	{
+		temp_total += num_of_invention->num_of_invention;
+	}
+	temp_total /= vector_num_of_invention.size();
+	R_average.insert(make_pair(E_num_of_invention, temp_total));
+	temp_total = 0.0f;
+
+	/** 申请人数 */
+	for (auto& num_of_application : vector_num_of_application)
+	{
+		temp_total += num_of_application->num_of_application;
+	}
+	temp_total /= vector_num_of_application.size();
+	R_average.insert(make_pair(E_num_of_application, temp_total));
+	temp_total = 0.0f;
+
+	/** 当前专利权人数 */
+	for (auto& current_num_of_patent : vector_current_num_of_patent)
+	{
+		temp_total += current_num_of_patent->current_num_of_patent;
+	}
+	temp_total /= vector_current_num_of_patent.size();
+	R_average.insert(make_pair(E_current_num_of_patent, temp_total));
+	temp_total = 0.0f;
+
+	/** 申请人类型 */
+	for (auto& type_of_application : vector_type_of_application)
+	{
+		temp_total += type_of_application->type_of_application;
+	}
+	temp_total /= vector_type_of_application.size();
+	R_average.insert(make_pair(E_type_of_application, temp_total));
+}
+
+
 vector<double> Patent::GetFirestMaxDIndex()
 {
 	for (auto& transfer_data : transfer_all_data)
@@ -2192,3 +2430,416 @@ vector<double> Patent::GetFirestMaxDIndex()
 	return max_complete_socre;
 }
 
+void Patent::CalculateRValue()
+{
+	double molecule = 0.0f;
+	double denominator_first = 0.0f;
+	double denominator_second = 0.0f;
+	RValueCL temp_r_valueCL;
+
+	/** 说明书页数  附图个数 */
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		molecule += (vector_instruction_num[i]->instruction_num - R_average[E_instruction_num])*(vector_image_num[i]->image_num - R_average[E_image_num]);
+	}
+	
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		denominator_first += pow((vector_instruction_num[i]->instruction_num - R_average[E_instruction_num]),2);
+		denominator_second += pow((vector_image_num[i]->image_num - R_average[E_image_num]),2);
+	}
+	
+	temp_r_valueCL.first_value = E_instruction_num;
+	temp_r_valueCL.second_value = E_image_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 说明书页数  文献引证数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		molecule += (vector_instruction_num[i]->instruction_num - R_average[E_instruction_num])*(vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]);
+	}
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		denominator_first += pow((vector_instruction_num[i]->instruction_num - R_average[E_instruction_num]), 2);
+		denominator_second += pow((vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_instruction_num;
+	temp_r_valueCL.second_value = E_non_patent_citation_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 说明书页数  专利引证数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		molecule += (vector_instruction_num[i]->instruction_num - R_average[E_instruction_num])*(vector_citation_num[i]->citation_num - R_average[E_citation_num]);
+	}
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		denominator_first += pow((vector_instruction_num[i]->instruction_num - R_average[E_instruction_num]), 2);
+		denominator_second += pow((vector_citation_num[i]->citation_num - R_average[E_citation_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_instruction_num;
+	temp_r_valueCL.second_value = E_citation_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 说明书页数  引证本国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		molecule += (vector_instruction_num[i]->instruction_num - R_average[E_instruction_num])*(vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]);
+	}
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		denominator_first += pow((vector_instruction_num[i]->instruction_num - R_average[E_instruction_num]), 2);
+		denominator_second += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_instruction_num;
+	temp_r_valueCL.second_value = E_citation_of_domestic_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 说明书页数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		molecule += (vector_instruction_num[i]->instruction_num - R_average[E_instruction_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_instruction_num.size(); ++i)
+	{
+		denominator_first += pow((vector_instruction_num[i]->instruction_num - R_average[E_instruction_num]), 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_instruction_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 附图个数  文献引证数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		molecule += (vector_image_num[i]->image_num - R_average[E_image_num])*(vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]);
+	}
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		denominator_first += pow(vector_image_num[i]->image_num - R_average[E_image_num], 2);
+		denominator_second += pow((vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_image_num;
+	temp_r_valueCL.second_value = E_non_patent_citation_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 附图个数  专利引证数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		molecule += (vector_image_num[i]->image_num - R_average[E_image_num])*(vector_citation_num[i]->citation_num - R_average[E_citation_num]);
+	}
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		denominator_first += pow(vector_image_num[i]->image_num - R_average[E_image_num], 2);
+		denominator_second += pow((vector_citation_num[i]->citation_num - R_average[E_citation_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_image_num;
+	temp_r_valueCL.second_value = E_citation_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 附图个数  引证本国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		molecule += (vector_image_num[i]->image_num - R_average[E_image_num])*(vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]);
+	}
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		denominator_first += pow(vector_image_num[i]->image_num - R_average[E_image_num], 2);
+		denominator_second += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_image_num;
+	temp_r_valueCL.second_value = E_citation_of_domestic_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 附图个数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		molecule += (vector_image_num[i]->image_num - R_average[E_image_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_image_num.size(); ++i)
+	{
+		denominator_first += pow(vector_image_num[i]->image_num - R_average[E_image_num], 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_image_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 文献引证数  专利引证数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		molecule += (vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num])*(vector_citation_num[i]->citation_num - R_average[E_citation_num]);
+	}
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		denominator_first += pow((vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]), 2);
+		denominator_second += pow((vector_citation_num[i]->citation_num - R_average[E_citation_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_non_patent_citation_num;
+	temp_r_valueCL.second_value = E_citation_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 文献引证数  引证本国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		molecule += (vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num])*(vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]);
+	}
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		denominator_first += pow((vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]), 2);
+		denominator_second += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_non_patent_citation_num;
+	temp_r_valueCL.second_value = E_citation_of_domestic_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 文献引证数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		molecule += (vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_non_patent_citation_num.size(); ++i)
+	{
+		denominator_first += pow((vector_non_patent_citation_num[i]->non_patent_citation_num - R_average[E_non_patent_citation_num]), 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_non_patent_citation_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 专利引证数  引证本国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_citation_num.size(); ++i)
+	{
+		molecule += (vector_citation_num[i]->citation_num - R_average[E_citation_num])*(vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]);
+	}
+
+	for (int i = 0; i < vector_citation_num.size(); ++i)
+	{
+		denominator_first += pow((vector_citation_num[i]->citation_num - R_average[E_citation_num]), 2);
+		denominator_second += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_citation_num;
+	temp_r_valueCL.second_value = E_citation_of_domestic_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 专利引证数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_citation_num.size(); ++i)
+	{
+		molecule += (vector_citation_num[i]->citation_num - R_average[E_citation_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_citation_num.size(); ++i)
+	{
+		denominator_first += pow((vector_citation_num[i]->citation_num - R_average[E_citation_num]), 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_citation_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 引证本国专利数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_citation_of_domestic_num.size(); ++i)
+	{
+		molecule += (vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_citation_of_domestic_num.size(); ++i)
+	{
+		denominator_first += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_citation_of_domestic_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+
+	/** 引证本国专利数  引证外国专利数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_citation_of_domestic_num.size(); ++i)
+	{
+		molecule += (vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num])*(vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]);
+	}
+
+	for (int i = 0; i < vector_citation_of_domestic_num.size(); ++i)
+	{
+		denominator_first += pow((vector_citation_of_domestic_num[i]->citation_of_domestic_num - R_average[E_citation_of_domestic_num]), 2);
+		denominator_second += pow((vector_citation_of_foreign_num[i]->citation_of_foreign_num - R_average[E_citation_of_foreign_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_citation_of_domestic_num;
+	temp_r_valueCL.second_value = E_citation_of_foreign_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+
+
+
+	/** 专利类别  保护期 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_patent_type.size(); ++i)
+	{
+		molecule += (vector_patent_type[i]->patent_type - R_average[E_patent_type])*(vector_term_of_patent_protection[i]->term_of_patent_protection - R_average[E_term_of_patent_protection]);
+	}
+
+	for (int i = 0; i < vector_patent_type.size(); ++i)
+	{
+		denominator_first += pow((vector_patent_type[i]->patent_type - R_average[E_patent_type]), 2);
+		denominator_second += pow((vector_term_of_patent_protection[i]->term_of_patent_protection - R_average[E_term_of_patent_protection]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_patent_type;
+	temp_r_valueCL.second_value = E_term_of_patent_protection;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+	/** 专利类别  分类数 */
+	molecule = 0.0f;
+	denominator_first = 0.0f;
+	denominator_second = 0.0f;
+
+	for (int i = 0; i < vector_patent_type.size(); ++i)
+	{
+		molecule += (vector_patent_type[i]->patent_type - R_average[E_patent_type])*(vector_classify_num[i]->classify_num - R_average[E_classify_num]);
+	}
+
+	for (int i = 0; i < vector_patent_type.size(); ++i)
+	{
+		denominator_first += pow((vector_patent_type[i]->patent_type - R_average[E_patent_type]), 2);
+		denominator_second += pow((vector_classify_num[i]->classify_num - R_average[E_classify_num]), 2);
+	}
+
+	temp_r_valueCL.first_value = E_patent_type;
+	temp_r_valueCL.second_value = E_classify_num;
+	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
+	R_value_Technology.push_back(temp_r_valueCL);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

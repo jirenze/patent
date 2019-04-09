@@ -43,12 +43,38 @@ public:
 	/** 计算差值 */
 	void CalculateDifference();
 
+	/** 计算各项指标的均值 */
+	void CalculateAverage();
+
+	/** 计算R值 */
+	void CalculateRValue();
+
+public:
 	/** 得到最大的D值 */
 	vector<double> GetFirestMaxDIndex();
 
 	/** 各项数据的D值 */
 	vector<double> max_complete_socre;
 
+	/** 各项指标的均值 */
+	map<Enum_Patent, double> R_average;
+
+	/** 各项数据的R值 技术类 */
+	vector<RValueCL> R_value_Technology;
+	/** 各项数据的R值 IPC */
+	vector<RValueCL> R_value_IPC;
+	/** 各项数据的R值 国际化 */
+	vector<RValueCL> R_value_Internationalization;
+	/** 各项数据的R值 时间 */
+	vector<RValueCL> R_value_Time;
+	/** 各项数据的R值 权利类 */
+	vector<RValueCL> R_value_Right;
+	/** 各项数据的R值 发明人 申请人 */
+	vector<RValueCL> R_value_Inventor;
+
+public:
+	/** 计算准则层R值 */
+	
 
 
 private: 
@@ -136,7 +162,7 @@ private:
 	/** 申请人类型 */
 	vector<shared_ptr<Type_Of_Application>> vector_type_of_application;
 
-	
+
 
 
 
@@ -227,3 +253,4 @@ private:
 	/** 初始化群编号数值 */
 	const double temp_num_init = 1000.0f;
 };
+
