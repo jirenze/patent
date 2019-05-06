@@ -87,17 +87,13 @@ void Patent::PickCSVData()
 
 		/** 1 文献号 */
 		ss_stream << str_line[str_index];
-		string temp_literature;
-		ss_stream >> temp_literature;
-		temp_patent_data->literature.insert(make_pair(E_literature, temp_literature));
+		ss_stream >> temp_patent_data->literature;
 		++str_index;
 		ss_stream.clear();
 
 		/** 2 是否转让 */
 		ss_stream << str_line[str_index];
-		int temp_transfer = 0;
-		ss_stream >> temp_transfer;
-		temp_patent_data->transfer.insert(make_pair(E_transfer, temp_transfer));
+		ss_stream >> temp_patent_data->transfer;
 		++str_index;
 		ss_stream.clear();
 
@@ -105,7 +101,7 @@ void Patent::PickCSVData()
 		ss_stream << str_line[str_index];
 		double temp_double = 0.0;
 		ss_stream >> temp_double;
-		temp_patent_data->instruction_num.insert(make_pair(E_instruction_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_instruction_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -113,7 +109,7 @@ void Patent::PickCSVData()
 		/** 4 附图个数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->image_num.insert(make_pair(E_image_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_image_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -121,7 +117,7 @@ void Patent::PickCSVData()
 		/** 5 文献引证数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->non_patent_citation_num.insert(make_pair(E_non_patent_citation_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_non_patent_citation_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -129,7 +125,7 @@ void Patent::PickCSVData()
 		/** 6 专利引证数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->citation_num.insert(make_pair(E_citation_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -137,7 +133,7 @@ void Patent::PickCSVData()
 		/** 7 引证本国专利数*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->citation_of_domestic_num.insert(make_pair(E_citation_of_domestic_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_of_domestic_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -145,7 +141,7 @@ void Patent::PickCSVData()
 		/** 8 引证外国专利数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->citation_of_foreign_num.insert(make_pair(E_citation_of_foreign_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_of_foreign_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -153,7 +149,7 @@ void Patent::PickCSVData()
 		/** 9 专利类别 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->patent_type.insert(make_pair(E_patent_type, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_patent_type, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -161,7 +157,7 @@ void Patent::PickCSVData()
 		/** 10 保护期 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->term_of_patent_protection.insert(make_pair(E_term_of_patent_protection, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_term_of_patent_protection, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -169,7 +165,7 @@ void Patent::PickCSVData()
 		/** 11 分类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->classify_num.insert(make_pair(E_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -177,7 +173,7 @@ void Patent::PickCSVData()
 		/** 12 IPC大类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->IPC_large_classify_num.insert(make_pair(E_IPC_large_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_IPC_large_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -185,7 +181,7 @@ void Patent::PickCSVData()
 		/** 13 IPC小类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->IPC_sub_classify_num.insert(make_pair(E_IPC_sub_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_IPC_sub_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -193,7 +189,7 @@ void Patent::PickCSVData()
 		/** 14 同族专利数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->kin_num.insert(make_pair(E_kin_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_kin_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -201,7 +197,7 @@ void Patent::PickCSVData()
 		/** 15 同族布局国家、地区数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->kin_of_country_num.insert(make_pair(E_kin_of_country_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_kin_of_country_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -209,7 +205,7 @@ void Patent::PickCSVData()
 		/** 16 是否为PCT申请 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->PCT_apply.insert(make_pair(E_PCT_apply, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_PCT_apply, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -217,7 +213,7 @@ void Patent::PickCSVData()
 		/** 17 是否为五国专利/四方专利 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->five_four_countries_patent.insert(make_pair(E_five_four_countries_patent, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_five_four_countries_patent, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -225,7 +221,7 @@ void Patent::PickCSVData()
 		/** 18 专利国别代码 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->country_code.insert(make_pair(E_country_code, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_country_code, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -233,7 +229,7 @@ void Patent::PickCSVData()
 		/** 19 申请日公开日时间间隔（年）*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->application_open_day_interval.insert(make_pair(E_application_open_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_application_open_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -241,7 +237,7 @@ void Patent::PickCSVData()
 		/** 20 申请日授权日时间间隔 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->application_authorization_day_interval.insert(make_pair(E_application_authorization_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_application_authorization_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -249,7 +245,7 @@ void Patent::PickCSVData()
 		/** 21 公开日授权日时间间隔 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->open_authorization_day_interval.insert(make_pair(E_open_authorization_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_open_authorization_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -257,7 +253,7 @@ void Patent::PickCSVData()
 		/** 22 剩余有效期 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->survival_time.insert(make_pair(E_survival_time, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_survival_time, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -265,7 +261,7 @@ void Patent::PickCSVData()
 		/** 23 是否有优先权 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->prority.insert(make_pair(E_prority, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_prority, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -273,7 +269,7 @@ void Patent::PickCSVData()
 		/** 24 权项数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->right_num.insert(make_pair(E_right_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_right_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -281,7 +277,7 @@ void Patent::PickCSVData()
 		/** 25 发明人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->num_of_invention.insert(make_pair(E_num_of_invention, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_num_of_invention, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -289,7 +285,7 @@ void Patent::PickCSVData()
 		/** 26 申请人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->num_of_application.insert(make_pair(E_num_of_application, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_num_of_application, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -297,7 +293,7 @@ void Patent::PickCSVData()
 		/** 27 当前专利权人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->current_num_of_patent.insert(make_pair(E_current_num_of_patent, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_current_num_of_patent, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -305,7 +301,7 @@ void Patent::PickCSVData()
 		/** 28 申请人类型 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->type_of_application.insert(make_pair(E_type_of_application, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_type_of_application, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -316,327 +312,23 @@ void Patent::PickCSVData()
 
 void Patent::PickEveStruct()
 {
-	/** 说明书页数 */
-	vector<shared_ptr<Base_Struct>> vector_instruction_num;
-	/** 附图个数 */
-	vector<shared_ptr<Base_Struct>> vector_image_num;
-	/** 文献引证数 */
-	vector<shared_ptr<Base_Struct>> vector_non_patent_citation_num;
-	/** 专利引证数 */
-	vector<shared_ptr<Base_Struct>> vector_citation_num;
-	/** 引证本国专利数*/
-	vector<shared_ptr<Base_Struct>> vector_citation_of_domestic_num;
-	/** 引证外国专利数 */
-	vector<shared_ptr<Base_Struct>> vector_citation_of_foreign_num;
-	/** 专利类别 */
-	vector<shared_ptr<Base_Struct>> vector_patent_type;
-	/** 保护期 */
-	vector<shared_ptr<Base_Struct>> vector_term_of_patent_protection;
-	/** 分类数 */
-	vector<shared_ptr<Base_Struct>> vector_classify_num;
-	/** IPC大类数 */
-	vector<shared_ptr<Base_Struct>> vector_IPC_large_classify_num;
-	/** IPC小类数 */
-	vector<shared_ptr<Base_Struct>> vector_IPC_sub_classify_num;
-	/** 同族专利数 */
-	vector<shared_ptr<Base_Struct>> vector_kin_num;
-	/** 同族布局国家、地区数 */
-	vector<shared_ptr<Base_Struct>> vector_kin_of_country_num;
-	/** 是否为PCT申请 */
-	vector<shared_ptr<Base_Struct>> vector_PCT_apply;
-	/** 是否为五国专利/四方专利 */
-	vector<shared_ptr<Base_Struct>> vector_five_four_countries_patent;
-	/** 专利国别代码 */
-	vector<shared_ptr<Base_Struct>>  vector_country_code;
-	/** 申请日公开日时间间隔（年）*/
-	vector<shared_ptr<Base_Struct>> vector_application_open_day_interval;
-	/** 申请日授权日时间间隔 */
-	vector<shared_ptr<Base_Struct>> vector_application_authorization_day_interval;
-	/** 公开日授权日时间间隔 */
-	vector<shared_ptr<Base_Struct>> vector_open_authorization_day_interval;
-	/** 剩余有效期 */
-	vector<shared_ptr<Base_Struct>> vector_survival_time;
-	/** 是否有优先权 */
-	vector<shared_ptr<Base_Struct>> vector_prority;
-	/** 权项数 */
-	vector<shared_ptr<Base_Struct>> vector_right_num;
-	/** 发明人数 */
-	vector<shared_ptr<Base_Struct>> vector_num_of_invention;
-	/** 申请人数 */
-	vector<shared_ptr<Base_Struct>> vector_num_of_application;
-	/** 当前专利权人数 */
-	vector<shared_ptr<Base_Struct>> vector_current_num_of_patent;
-	/** 申请人类型 */
-	vector<shared_ptr<Base_Struct>> vector_type_of_application;
-
-	for (auto& patent_data : patent_all_data)
+	AddEnumPatent();
+	for (auto& enum_patent : all_enum_patent)
 	{
 		/** 说明书页数 */
-		shared_ptr<Base_Struct> temp_instruction_num = make_shared<Base_Struct>();
-		temp_instruction_num->literature = patent_data->literature;
-		temp_instruction_num->transfer = patent_data->transfer;
-		temp_instruction_num->num_of_feature = patent_data->instruction_num;
-
-		/** 附图个数 */
-		shared_ptr<Base_Struct> temp_image_num = make_shared<Base_Struct>();
-		temp_image_num->literature = patent_data->literature;
-		temp_image_num->transfer = patent_data->transfer;
-		temp_image_num->num_of_feature = patent_data->image_num;
-
-		/** 文献引证数 */
-		shared_ptr<Base_Struct> temp_non_patent_citation_num = make_shared<Base_Struct>();
-		temp_non_patent_citation_num->literature = patent_data->literature;
-		temp_non_patent_citation_num->transfer = patent_data->transfer;
-		temp_non_patent_citation_num->num_of_feature = patent_data->non_patent_citation_num;
-
-		/** 专利引证数 */
-		shared_ptr<Base_Struct> temp_citation_num = make_shared<Base_Struct>();
-		temp_citation_num->literature = patent_data->literature;
-		temp_citation_num->transfer = patent_data->transfer;
-		temp_citation_num->num_of_feature = patent_data->citation_num;
-
-		/** 引证本国专利数*/
-		shared_ptr<Base_Struct> temp_citation_of_domestic_num = make_shared<Base_Struct>();
-		temp_citation_of_domestic_num->literature = patent_data->literature;
-		temp_citation_of_domestic_num->transfer = patent_data->transfer;
-		temp_citation_of_domestic_num->num_of_feature = patent_data->citation_of_domestic_num;
-
-		/** 引证外国专利数 */
-		shared_ptr<Base_Struct> temp_citation_of_foreign_num = make_shared<Base_Struct>();
-		temp_citation_of_foreign_num->literature = patent_data->literature;
-		temp_citation_of_foreign_num->transfer = patent_data->transfer;
-		temp_citation_of_foreign_num->num_of_feature = patent_data->citation_of_foreign_num;
-
-		/** 专利类别 */
-		shared_ptr<Base_Struct> temp_patent_type = make_shared<Base_Struct>();
-		temp_patent_type->literature = patent_data->literature;
-		temp_patent_type->transfer = patent_data->transfer;
-		temp_patent_type->num_of_feature = patent_data->patent_type;
-
-		/** 保护期 */
-		shared_ptr<Base_Struct> temp_term_of_patent_protection = make_shared<Base_Struct>();
-		temp_term_of_patent_protection->literature = patent_data->literature;
-		temp_term_of_patent_protection->transfer = patent_data->transfer;
-		temp_term_of_patent_protection->num_of_feature = patent_data->term_of_patent_protection;
-
-		/** 分类数 */
-		shared_ptr<Base_Struct> temp_classify_num = make_shared<Base_Struct>();
-		temp_classify_num->literature = patent_data->literature;
-		temp_classify_num->transfer = patent_data->transfer;
-		temp_classify_num->num_of_feature = patent_data->classify_num;
-
-		/** IPC大类数 */
-		shared_ptr<Base_Struct> temp_IPC_large_classify_num = make_shared<Base_Struct>();
-		temp_IPC_large_classify_num->literature = patent_data->literature;
-		temp_IPC_large_classify_num->transfer = patent_data->transfer;
-		temp_IPC_large_classify_num->num_of_feature = patent_data->IPC_large_classify_num;
-
-		/** IPC小类数 */
-		shared_ptr<Base_Struct> temp_IPC_sub_classify_num = make_shared<Base_Struct>();
-		temp_IPC_sub_classify_num->literature = patent_data->literature;
-		temp_IPC_sub_classify_num->transfer = patent_data->transfer;
-		temp_IPC_sub_classify_num->num_of_feature = patent_data->IPC_sub_classify_num;
-
-		/** 同族专利数 */
-		shared_ptr<Base_Struct> temp_kin_num = make_shared<Base_Struct>();
-		temp_kin_num->literature = patent_data->literature;
-		temp_kin_num->transfer = patent_data->transfer;
-		temp_kin_num->num_of_feature = patent_data->kin_num;
-
-		/** 同族布局国家、地区数 */
-		shared_ptr<Base_Struct> temp_kin_of_country_num = make_shared<Base_Struct>();
-		temp_kin_of_country_num->literature = patent_data->literature;
-		temp_kin_of_country_num->transfer = patent_data->transfer;
-		temp_kin_of_country_num->num_of_feature = patent_data->kin_of_country_num;
-
-		/** 是否为PCT申请 */
-		shared_ptr<Base_Struct> temp_PCT_apply = make_shared<Base_Struct>();
-		temp_PCT_apply->literature = patent_data->literature;
-		temp_PCT_apply->transfer = patent_data->transfer;
-		temp_PCT_apply->num_of_feature = patent_data->PCT_apply;
-
-		/** 是否为五国专利/四方专利 */
-		shared_ptr<Base_Struct> temp_five_four_countries_patent = make_shared<Base_Struct>();
-		temp_five_four_countries_patent->literature = patent_data->literature;
-		temp_five_four_countries_patent->transfer = patent_data->transfer;
-		temp_five_four_countries_patent->num_of_feature = patent_data->five_four_countries_patent;
-
-		/** 专利国别代码 */
-		shared_ptr<Base_Struct> temp_country_code = make_shared<Base_Struct>();
-		temp_country_code->literature = patent_data->literature;
-		temp_country_code->transfer = patent_data->transfer;
-		temp_country_code->num_of_feature = patent_data->country_code;
-
-		/** 申请日公开日时间间隔（年）*/
-		shared_ptr<Base_Struct> temp_application_open_day_interval = make_shared<Base_Struct>();
-		temp_application_open_day_interval->literature = patent_data->literature;
-		temp_application_open_day_interval->transfer = patent_data->transfer;
-		temp_application_open_day_interval->num_of_feature = patent_data->application_open_day_interval;
-
-		/** 申请日授权日时间间隔 */
-		shared_ptr<Base_Struct> temp_application_authorization_day_interval = make_shared<Base_Struct>();
-		temp_application_authorization_day_interval->literature = patent_data->literature;
-		temp_application_authorization_day_interval->transfer = patent_data->transfer;
-		temp_application_authorization_day_interval->num_of_feature = patent_data->application_authorization_day_interval;
-
-		/** 公开日授权日时间间隔 */
-		shared_ptr<Base_Struct> temp_open_authorization_day_interval = make_shared<Base_Struct>();
-		temp_open_authorization_day_interval->literature = patent_data->literature;
-		temp_open_authorization_day_interval->transfer = patent_data->transfer;
-		temp_open_authorization_day_interval->num_of_feature = patent_data->open_authorization_day_interval;
-
-		/** 剩余有效期 */
-		shared_ptr<Base_Struct> temp_survival_time = make_shared<Base_Struct>();
-		temp_survival_time->literature = patent_data->literature;
-		temp_survival_time->transfer = patent_data->transfer;
-		temp_survival_time->num_of_feature = patent_data->survival_time;
-
-		/** 是否有优先权 */
-		shared_ptr<Base_Struct> temp_prority = make_shared<Base_Struct>();
-		temp_prority->literature = patent_data->literature;
-		temp_prority->transfer = patent_data->transfer;
-		temp_prority->num_of_feature = patent_data->prority;
-
-		/** 权项数 */
-		shared_ptr<Base_Struct> temp_right_num = make_shared<Base_Struct>();
-		temp_right_num->literature = patent_data->literature;
-		temp_right_num->transfer = patent_data->transfer;
-		temp_right_num->num_of_feature = patent_data->right_num;
-
-		/** 发明人数 */
-		shared_ptr<Base_Struct> temp_num_of_invention = make_shared<Base_Struct>();
-		temp_num_of_invention->literature = patent_data->literature;
-		temp_num_of_invention->transfer = patent_data->transfer;
-		temp_num_of_invention->num_of_feature = patent_data->num_of_invention;
-
-		/** 申请人数 */
-		shared_ptr<Base_Struct> temp_num_of_application = make_shared<Base_Struct>();
-		temp_num_of_application->literature = patent_data->literature;
-		temp_num_of_application->transfer = patent_data->transfer;
-		temp_num_of_application->num_of_feature = patent_data->num_of_application;
-
-		/** 当前专利权人数 */
-		shared_ptr<Base_Struct> temp_current_num_of_patent = make_shared<Base_Struct>();
-		temp_current_num_of_patent->literature = patent_data->literature;
-		temp_current_num_of_patent->transfer = patent_data->transfer;
-		temp_current_num_of_patent->num_of_feature = patent_data->current_num_of_patent;
-
-		/** 申请人类型 */
-		shared_ptr<Base_Struct> temp_type_of_application = make_shared<Base_Struct>();
-		temp_type_of_application->literature = patent_data->literature;
-		temp_type_of_application->transfer = patent_data->transfer;
-		temp_type_of_application->num_of_feature = patent_data->type_of_application;
-
-
-
-		/** 说明书页数 */
-		vector_instruction_num.push_back(temp_instruction_num);
-		/** 附图个数 */
-		vector_image_num.push_back(temp_image_num);
-		/** 文献引证数 */
-		vector_non_patent_citation_num.push_back(temp_non_patent_citation_num);
-		/** 专利引证数 */
-		vector_citation_num.push_back(temp_citation_num);
-		/** 引证本国专利数*/
-		vector_citation_of_domestic_num.push_back(temp_citation_of_domestic_num);
-		/** 引证外国专利数 */
-		vector_citation_of_foreign_num.push_back(temp_citation_of_foreign_num);
-		/** 专利类别 */
-		vector_patent_type.push_back(temp_patent_type);
-		/** 保护期 */
-		vector_term_of_patent_protection.push_back(temp_term_of_patent_protection);
-		/** 分类数 */
-		vector_classify_num.push_back(temp_classify_num);
-		/** IPC大类数 */
-		vector_IPC_large_classify_num.push_back(temp_IPC_large_classify_num);
-		/** IPC小类数 */
-		vector_IPC_sub_classify_num.push_back(temp_IPC_sub_classify_num);
-		/** 同族专利数 */
-		vector_kin_num.push_back(temp_kin_num);
-		/** 同族布局国家、地区数 */
-		vector_kin_of_country_num.push_back(temp_kin_of_country_num);
-		/** 是否为PCT申请 */
-		vector_PCT_apply.push_back(temp_PCT_apply);
-		/** 是否为五国专利/四方专利 */
-		vector_five_four_countries_patent.push_back(temp_five_four_countries_patent);
-		/** 专利国别代码 */
-		vector_country_code.push_back(temp_country_code);
-		/** 申请日公开日时间间隔（年）*/
-		vector_application_open_day_interval.push_back(temp_application_open_day_interval);
-		/** 申请日授权日时间间隔 */
-		vector_application_authorization_day_interval.push_back(temp_application_authorization_day_interval);
-		/** 公开日授权日时间间隔 */
-		vector_open_authorization_day_interval.push_back(temp_open_authorization_day_interval);
-		/** 剩余有效期 */
-		vector_survival_time.push_back(temp_survival_time);
-		/** 是否有优先权 */
-		vector_prority.push_back(temp_prority);
-		/** 权项数 */
-		vector_right_num.push_back(temp_right_num);
-		/** 发明人数 */
-		vector_num_of_invention.push_back(temp_num_of_invention);
-		/** 申请人数 */
-		vector_num_of_application.push_back(temp_num_of_application);
-		/** 当前专利权人数 */
-		vector_current_num_of_patent.push_back(temp_current_num_of_patent);
-		/** 申请人类型 */
-		vector_type_of_application.push_back(temp_type_of_application);
+		vector<shared_ptr<Base_Struct>> vector_enum_num;
+		for (auto& patent_data : patent_all_data)
+		{
+			shared_ptr<Base_Struct> temp_enum_num = make_shared<Base_Struct>();
+			temp_enum_num->literature = patent_data->literature;
+			temp_enum_num->transfer = patent_data->transfer;
+			temp_enum_num->num_of_feature = patent_data->all_patent_data_S_num[enum_patent];
+			/** 说明书页数 */
+			vector_enum_num.push_back(temp_enum_num);
+		}
+		vector_base_struct_num.insert(make_pair(enum_patent, vector_enum_num));
+		vector_enum_num.clear();
 	}
-
-	/** 说明书页数 */
-	vector_base_struct_num.insert(make_pair(E_instruction_num, vector_instruction_num));
-	/** 附图个数 */
-	vector_base_struct_num.insert(make_pair(E_image_num, vector_image_num));
-	/** 文献引证数 */
-	vector_base_struct_num.insert(make_pair(E_non_patent_citation_num, vector_non_patent_citation_num));
-	/** 专利引证数 */
-	vector_base_struct_num.insert(make_pair(E_citation_num, vector_citation_num));
-	/** 引证本国专利数*/
-	vector_base_struct_num.insert(make_pair(E_citation_of_domestic_num, vector_citation_of_domestic_num));
-	/** 引证外国专利数 */
-	vector_base_struct_num.insert(make_pair(E_citation_of_foreign_num, vector_citation_of_foreign_num));
-	/** 专利类别 */
-	vector_base_struct_num.insert(make_pair(E_patent_type, vector_patent_type));
-	/** 保护期 */
-	vector_base_struct_num.insert(make_pair(E_term_of_patent_protection, vector_term_of_patent_protection));
-	/** 分类数 */
-	vector_base_struct_num.insert(make_pair(E_classify_num, vector_classify_num));
-	/** IPC大类数 */
-	vector_base_struct_num.insert(make_pair(E_IPC_large_classify_num, vector_IPC_large_classify_num));
-	/** IPC小类数 */
-	vector_base_struct_num.insert(make_pair(E_IPC_sub_classify_num, vector_IPC_sub_classify_num));
-	/** 同族专利数 */
-	vector_base_struct_num.insert(make_pair(E_kin_num, vector_kin_num));
-	/** 同族布局国家、地区数 */
-	vector_base_struct_num.insert(make_pair(E_kin_of_country_num, vector_kin_of_country_num));
-	/** 是否为PCT申请 */
-	vector_base_struct_num.insert(make_pair(E_PCT_apply, vector_PCT_apply));
-	/** 是否为五国专利/四方专利 */
-	vector_base_struct_num.insert(make_pair(E_five_four_countries_patent, vector_five_four_countries_patent));
-	/** 专利国别代码 */
-	vector_base_struct_num.insert(make_pair(E_country_code, vector_country_code));
-	/** 申请日公开日时间间隔（年）*/
-	vector_base_struct_num.insert(make_pair(E_application_open_day_interval, vector_application_open_day_interval));
-	/** 申请日授权日时间间隔 */
-	vector_base_struct_num.insert(make_pair(E_application_authorization_day_interval, vector_application_authorization_day_interval));
-	/** 公开日授权日时间间隔 */
-	vector_base_struct_num.insert(make_pair(E_open_authorization_day_interval, vector_open_authorization_day_interval));
-	/** 剩余有效期 */
-	vector_base_struct_num.insert(make_pair(E_survival_time, vector_survival_time));
-	/** 是否有优先权 */
-	vector_base_struct_num.insert(make_pair(E_prority, vector_prority));
-	/** 权项数 */
-	vector_base_struct_num.insert(make_pair(E_right_num, vector_right_num));
-	/** 发明人数 */
-	vector_base_struct_num.insert(make_pair(E_num_of_invention, vector_num_of_invention));
-	/** 申请人数 */
-	vector_base_struct_num.insert(make_pair(E_num_of_application, vector_num_of_application));
-	/** 专利权人规模 */
-	vector_base_struct_num.insert(make_pair(E_current_num_of_patent, vector_current_num_of_patent));
-	/** 申请人类型 */
-	vector_base_struct_num.insert(make_pair(E_type_of_application, vector_type_of_application));
-
-
 }
 
 void Patent::SortForEveVector()
@@ -977,10 +669,8 @@ void Patent::CalculateZValue()
 {
 	for (auto& temp_base_strcut_num : vector_base_struct_num)
 	{
-		temp_base_strcut_num
+		temp_base_strcut_num;
 	}
-
-
 }
 
 void Patent::SelectRvalueM(vector<RValueCL>& in_R_value)
