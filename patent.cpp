@@ -111,22 +111,24 @@ void Patent::ManageR()
 void Patent::ManageWZ()
 {
 	/** 计算W */
-	//CalculateWValue(w_data);
+	//CalculateWValueFull(w_data);
 
 	/** 计算Z */
-	//CalculateZValue(all_enum_patent,Z_total_vector);
+	//CalculateZValueFull(all_enum_patent,Z_total_vector);
 
 	/** 计算Z_total的D值 */
-	//CalculateZtotalD(Z_total_vector, Z_total_transfer);
+	//CalculateZtotalDFull(Z_total_vector, Z_total_transfer);
 }
 
 void Patent::ManageIndex()
 {
 	while (end_ok)
 	{
+		/** 计算W */
+		CalculateIndexForW();
 
-		/** 循环处理指标 */
-		CalculateIndexFor();
+		/** 循环处理除掉1个指标后的Z值计算数据结构 */
+		CalculateZFifter();
 
 		LeftoverIndex();
 	}
@@ -507,11 +509,6 @@ void Patent::CalculateAverage()
 	}
 }
 
-
-
-
-
-
 void Patent::CalculateRValue()
 {
 	/**------------- 技术类 ---------*/
@@ -670,7 +667,6 @@ void Patent::AddEnumPatent()
 	}
 }
 
-
 void Patent::SelectRafterD()
 {
 	/** 总的transfer结构体数据 */
@@ -679,6 +675,7 @@ void Patent::SelectRafterD()
 		transfer_after_data.insert(make_pair(temp_select_num, transfer_all_data[temp_select_num]));
 	}
 }
+
 void Patent::SelectRvalue()
 {
 	SelectRvalueM(R_value_Technology);
@@ -716,8 +713,9 @@ void Patent::SelectRvalue()
 }
 
 
-void Patent::CalculateWValue(map<Enum_Patent, double>& in_w_data)
+void Patent::CalculateWValueFull(map<Enum_Patent, double>& in_w_data_fifter_for_z)
 {
+	in_w_data_fifter_for_z.clear();
 	double D_total = 0.0;
 	for (auto& temp_transfer_after : transfer_after_data)
 	{
@@ -727,132 +725,13 @@ void Patent::CalculateWValue(map<Enum_Patent, double>& in_w_data)
 	for (auto& temp_transfer_after : transfer_after_data)
 	{
 		double temp_w_once = temp_transfer_after.second->first_max_d / D_total;
-		in_w_data.insert(make_pair(temp_transfer_after.first, temp_w_once));
+		in_w_data_fifter_for_z.insert(make_pair(temp_transfer_after.first, temp_w_once));
 	}
 }
 
-void Patent::CalculateZValue(vector<Enum_Patent>& in_all_enum_patent, vector<shared_ptr<Base_Struct>>& in_Z_total_vector, map<Enum_Patent, double> in_w_data)
+void Patent::CalculateWValueDelete(map<Enum_Patent, map<Enum_Patent, double>>& in_w_data_fifter_for_all)
 {
-	in_Z_total_vector.clear();
-	for (auto& temp_patent_data : patent_all_data)
-	{
-		shared_ptr<Base_Struct> temp_once_patent_Z = make_shared<Base_Struct>();
-		for (auto& temp_once_enum_patent : in_all_enum_patent)
-		{
-			temp_once_patent_Z->num_of_feature += temp_patent_data->all_patent_data_S_num[temp_once_enum_patent] * in_w_data[temp_once_enum_patent];
-		}
-		temp_once_patent_Z->literature = temp_patent_data->literature;
-		temp_once_patent_Z->transfer = temp_patent_data->transfer;
-		temp_once_patent_Z->num_of_feature *= 100.0;
-		in_Z_total_vector.push_back(temp_once_patent_Z);
-	}
-
-	/** 降序排列Z值 */
-	for (int i = 0; i < in_Z_total_vector.size() - 1; ++i)
-	{
-		for (int j = 0; j < in_Z_total_vector.size() - i - 1; ++j)
-		{
-			if (in_Z_total_vector[j]->num_of_feature < in_Z_total_vector[j + 1]->num_of_feature)
-			{
-				swap(in_Z_total_vector[j], in_Z_total_vector[j + 1]);
-			}
-		}
-	}
-}
-
-void Patent::CalculateZtotalD(vector<shared_ptr<Base_Struct>>& in_Z_total_vector, shared_ptr<Transfer_Data>& in_Z_total_transfer)
-{
-	/** 转让次数，为转让次数 */
-	double transfer_add_index = 0.0;
-	double untransfer_add_index = 0.0;
-	double temp_num = temp_num_init;
-	temp_num = in_Z_total_vector[0]->num_of_feature;
-	in_Z_total_transfer = make_shared<Transfer_Data>();
-	for (auto& temp_z_total : in_Z_total_vector)
-	{
-		/** 同一专利群 */
-		if (temp_num == temp_z_total->num_of_feature)
-		{
-			/** 如果转让 */
-			if (temp_z_total->transfer == 1)
-			{
-				++transfer_add_index;
-			}
-			/** 如果未转让 */
-			if (temp_z_total->transfer == 0)
-			{
-				++untransfer_add_index;
-			}
-			continue;
-		}
-		/** 不同专利群 */
-		else
-		{
-			in_Z_total_transfer->transfer_add_index.push_back(transfer_add_index);
-			in_Z_total_transfer->untransfer_add_index.push_back(untransfer_add_index);
-
-			/** 如果转让 */
-			if (temp_z_total->transfer == 1)
-			{
-				++transfer_add_index;
-			}
-			/** 如果未转让 */
-			if (temp_z_total->transfer == 0)
-			{
-				++untransfer_add_index;
-			}
-
-			temp_num = temp_z_total->num_of_feature;
-		}
-	}
-	
-	/** 最后一次的 */
-	in_Z_total_transfer->transfer_add_index.push_back(transfer_add_index);
-	in_Z_total_transfer->untransfer_add_index.push_back(untransfer_add_index);
-	/** 总共的专利转让和为转让次数 */
-	in_Z_total_transfer->transfer_num = double(transfer_add_index);
-	in_Z_total_transfer->untransfer_num = double(untransfer_add_index);
-
-	/** 最大差值 */
-	double temp_transfer_difference = 0.0;
-
-	/** 每一项指标 */
-	for (int i = 0; i < in_Z_total_transfer->transfer_add_index.size(); i++)
-	{
-		double transfer_difference = in_Z_total_transfer->transfer_add_index[i] / in_Z_total_transfer->transfer_num
-			- in_Z_total_transfer->untransfer_add_index[i] / in_Z_total_transfer->untransfer_num;
-		double abs_transfer_difference = fabs(transfer_difference);
-		if (temp_transfer_difference < abs_transfer_difference)
-		{
-			temp_transfer_difference = abs_transfer_difference;
-		}
-	}
-
-	/** 求的最大差值 */
-	in_Z_total_transfer->first_max_d = temp_transfer_difference;
-}
-
-
-
-void Patent::CalculateIndexFor()
-{
-	/** 处理循环后的transfer */
-	for (auto& temp_pass_selected_enum : pass_selected_enum_patent)
-	{
-		map<Enum_Patent, shared_ptr<Transfer_Data>>::iterator iter_transfer = transfer_after_data.find(temp_pass_selected_enum);
-		if (iter_transfer != transfer_after_data.end())
-		{
-			transfer_after_data.erase(temp_pass_selected_enum);
-		}
-	}
-
-	/** 筛选后的W值  用来计算没有去掉指标的Z值 */
-	w_data_fifter_for_z.clear();
-	CalculateWValue(w_data_fifter_for_z);
-
-
-	/** 计算所有指标 除掉后的W */
-	w_data_fifter.clear();
+	in_w_data_fifter_for_all.clear();
 	for (auto& selected_num_once : selected_enum_patent)
 	{
 		double D_total = 0.0;
@@ -873,61 +752,49 @@ void Patent::CalculateIndexFor()
 				w_data_once.insert(make_pair(temp_transfer_after_second.first, temp_w_once));
 			}
 		}
-		w_data_fifter.insert(make_pair(selected_num_once, w_data_once));
+		in_w_data_fifter_for_all.insert(make_pair(selected_num_once, w_data_once));
 	}
-	CalculateZFifter();
 }
 
-void Patent::LeftoverIndex()
+void Patent::CalculateZValueFull(vector<Enum_Patent>& in_selected_enum_patent, vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, map<Enum_Patent, double>& in_w_data_fifter_for_z)
 {
-	double max_d_value = 0.0;
-	Enum_Patent temp_enum_max;
-	for (auto& Z_fifter_transfer_once : Z_total_fifter_transfer)
+	in_Z_fifter_full_vector.clear();
+	for (auto& temp_patent_data : patent_all_data)
 	{
-		if (Z_fifter_transfer_once.second->first_max_d > max_d_value)
+		shared_ptr<Base_Struct> temp_once_patent_Z = make_shared<Base_Struct>();
+		for (auto& temp_once_enum_patent : in_selected_enum_patent)
 		{
-			max_d_value = Z_fifter_transfer_once.second->first_max_d;
-			temp_enum_max = Z_fifter_transfer_once.first;
+			temp_once_patent_Z->num_of_feature += temp_patent_data->all_patent_data_S_num[temp_once_enum_patent] * in_w_data_fifter_for_z[temp_once_enum_patent];
+		}
+		temp_once_patent_Z->literature = temp_patent_data->literature;
+		temp_once_patent_Z->transfer = temp_patent_data->transfer;
+		temp_once_patent_Z->num_of_feature *= 100.0;
+		in_Z_fifter_full_vector.push_back(temp_once_patent_Z);
+	}
+
+	/** 降序排列Z值 */
+	for (int i = 0; i < in_Z_fifter_full_vector.size() - 1; ++i)
+	{
+		for (int j = 0; j < in_Z_fifter_full_vector.size() - i - 1; ++j)
+		{
+			if (in_Z_fifter_full_vector[j]->num_of_feature < in_Z_fifter_full_vector[j + 1]->num_of_feature)
+			{
+				swap(in_Z_fifter_full_vector[j], in_Z_fifter_full_vector[j + 1]);
+			}
 		}
 	}
-
-	bool temp_end_ok = false;
-
-	if (max_d_value > Z_fifter_total_transfer->first_max_d)
-	{
-		temp_end_ok = true;
-		pass_selected_enum_patent.push_back(temp_enum_max);
-	}
-	vector<Enum_Patent> temp_selected_enum_patent;
-	for (auto& temp_selected_next : selected_enum_patent)
-	{
-		if (temp_selected_next!= temp_enum_max)
-		{
-			temp_selected_enum_patent.push_back(temp_selected_next);
-		}
-	}
-	selected_enum_patent.clear();
-	selected_enum_patent = temp_selected_enum_patent;
-
-	if (!temp_end_ok)
-	{
-		end_ok = temp_end_ok;
-	}
-
 }
 
-
-void Patent::CalculateZFifter()
+void Patent::CalculateZValueDelete(vector<Enum_Patent>& in_selected_enum_patent, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector, map<Enum_Patent, map<Enum_Patent, double>>& in_w_data_fifter_for_all)
 {
-	Z_fifter_transfer.clear();
-	CalculateZValue(selected_enum_patent, Z_fifter_total_vector, w_data_fifter_for_z);
-	for (auto& w_data_fifter_once : w_data_fifter)
+	in_Z_fifter_delete_vector.clear();
+	for (auto& w_data_fifter_once : in_w_data_fifter_for_all)
 	{
 		vector<shared_ptr<Base_Struct>> temp_Z_total_vector;
 		for (auto& temp_patent_data : patent_all_data)
 		{
 			shared_ptr<Base_Struct> temp_once_patent_Z = make_shared<Base_Struct>();
-			for (auto& temp_once_enum_patent : selected_enum_patent)
+			for (auto& temp_once_enum_patent : in_selected_enum_patent)
 			{
 				if (temp_once_enum_patent != w_data_fifter_once.first)
 				{
@@ -951,15 +818,87 @@ void Patent::CalculateZFifter()
 				}
 			}
 		}
-		Z_fifter_transfer.insert(make_pair(w_data_fifter_once.first, temp_Z_total_vector));
+		in_Z_fifter_delete_vector.insert(make_pair(w_data_fifter_once.first, temp_Z_total_vector));
+	}
+}
+
+void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, shared_ptr<Transfer_Data>& in_Z_fifter_full_transfer)
+{
+	/** 转让次数，为转让次数 */
+	double transfer_add_index = 0.0;
+	double untransfer_add_index = 0.0;
+	double temp_num = temp_num_init;
+	temp_num = in_Z_fifter_full_vector[0]->num_of_feature;
+	in_Z_fifter_full_transfer = make_shared<Transfer_Data>();
+	for (auto& temp_z_total : in_Z_fifter_full_vector)
+	{
+		/** 同一专利群 */
+		if (temp_num == temp_z_total->num_of_feature)
+		{
+			/** 如果转让 */
+			if (temp_z_total->transfer == 1)
+			{
+				++transfer_add_index;
+			}
+			/** 如果未转让 */
+			if (temp_z_total->transfer == 0)
+			{
+				++untransfer_add_index;
+			}
+			continue;
+		}
+		/** 不同专利群 */
+		else
+		{
+			in_Z_fifter_full_transfer->transfer_add_index.push_back(transfer_add_index);
+			in_Z_fifter_full_transfer->untransfer_add_index.push_back(untransfer_add_index);
+
+			/** 如果转让 */
+			if (temp_z_total->transfer == 1)
+			{
+				++transfer_add_index;
+			}
+			/** 如果未转让 */
+			if (temp_z_total->transfer == 0)
+			{
+				++untransfer_add_index;
+			}
+
+			temp_num = temp_z_total->num_of_feature;
+		}
+	}
+	
+	/** 最后一次的 */
+	in_Z_fifter_full_transfer->transfer_add_index.push_back(transfer_add_index);
+	in_Z_fifter_full_transfer->untransfer_add_index.push_back(untransfer_add_index);
+	/** 总共的专利转让和为转让次数 */
+	in_Z_fifter_full_transfer->transfer_num = double(transfer_add_index);
+	in_Z_fifter_full_transfer->untransfer_num = double(untransfer_add_index);
+
+	/** 最大差值 */
+	double temp_transfer_difference = 0.0;
+
+	/** 每一项指标 */
+	for (int i = 0; i < in_Z_fifter_full_transfer->transfer_add_index.size(); i++)
+	{
+		double transfer_difference = in_Z_fifter_full_transfer->transfer_add_index[i] / in_Z_fifter_full_transfer->transfer_num
+			- in_Z_fifter_full_transfer->untransfer_add_index[i] / in_Z_fifter_full_transfer->untransfer_num;
+		double abs_transfer_difference = fabs(transfer_difference);
+		if (temp_transfer_difference < abs_transfer_difference)
+		{
+			temp_transfer_difference = abs_transfer_difference;
+		}
 	}
 
+	/** 求的最大差值 */
+	in_Z_fifter_full_transfer->first_max_d = temp_transfer_difference;
+}
 
-	Z_total_fifter_transfer.clear();
-	/** 计算总的Z结构体 */
-	CalculateZtotalD(Z_fifter_total_vector,Z_fifter_total_transfer);
 
-	for (auto& Z_fifter_transfer_once : Z_fifter_transfer)
+void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>& in_Z_fifter_delete_transfer, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector)
+{
+	in_Z_fifter_delete_transfer.clear();
+	for (auto& Z_fifter_transfer_once : in_Z_fifter_delete_vector)
 	{
 		/** 转让次数，为转让次数 */
 		double transfer_add_index = 0.0;
@@ -1030,6 +969,75 @@ void Patent::CalculateZFifter()
 
 		/** 求的最大差值 */
 		temp_Z_transfer->first_max_d = temp_transfer_difference;
-		Z_total_fifter_transfer.insert(make_pair(Z_fifter_transfer_once.first, temp_Z_transfer));
+		in_Z_fifter_delete_transfer.insert(make_pair(Z_fifter_transfer_once.first, temp_Z_transfer));
+	}
+}
+
+void Patent::CalculateIndexForW()
+{
+	/** 处理循环后的transfer */
+	for (auto& temp_pass_selected_enum : pass_selected_enum_patent)
+	{
+		map<Enum_Patent, shared_ptr<Transfer_Data>>::iterator iter_transfer = transfer_after_data.find(temp_pass_selected_enum);
+		if (iter_transfer != transfer_after_data.end())
+		{
+			transfer_after_data.erase(temp_pass_selected_enum);
+		}
+	}
+
+	/** 筛选后的W值  用来计算没有去掉指标的Z值 */
+	CalculateWValueFull(w_data_fifter_for_z);
+
+	/** 计算所有指标 除掉后的W */
+	CalculateWValueDelete(w_data_fifter_for_all);
+}
+
+void Patent::CalculateZFifter()
+{
+	/** 计算Z值，全指标 */
+	CalculateZValueFull(selected_enum_patent, Z_fifter_full_vector, w_data_fifter_for_z);
+	/** 计算去掉过指标的Z值 */
+	CalculateZValueDelete(selected_enum_patent, Z_fifter_delete_vector, w_data_fifter_for_all);
+
+	/** 计算总的Z结构体 */
+	CalculateZtotalDFull(Z_fifter_full_vector,Z_fifter_full_transfer);
+	/** 计算Z_total的D值，循环指标 */
+	CalculateZtotalDDelete(Z_fifter_delete_transfer, Z_fifter_delete_vector);
+}
+
+void Patent::LeftoverIndex()
+{
+	double max_d_value = 0.0;
+	Enum_Patent temp_enum_max;
+	for (auto& Z_fifter_transfer_once : Z_fifter_delete_transfer)
+	{
+		if (Z_fifter_transfer_once.second->first_max_d > max_d_value)
+		{
+			max_d_value = Z_fifter_transfer_once.second->first_max_d;
+			temp_enum_max = Z_fifter_transfer_once.first;
+		}
+	}
+
+	bool temp_end_ok = false;
+
+	if (max_d_value > Z_fifter_full_transfer->first_max_d)
+	{
+		temp_end_ok = true;
+		pass_selected_enum_patent.push_back(temp_enum_max);
+	}
+	vector<Enum_Patent> temp_selected_enum_patent;
+	for (auto& temp_selected_next : selected_enum_patent)
+	{
+		if (temp_selected_next != temp_enum_max)
+		{
+			temp_selected_enum_patent.push_back(temp_selected_next);
+		}
+	}
+	selected_enum_patent.clear();
+	selected_enum_patent = temp_selected_enum_patent;
+
+	if (!temp_end_ok)
+	{
+		end_ok = temp_end_ok;
 	}
 }
