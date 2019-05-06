@@ -13,19 +13,16 @@ int main()
 
 	/** 写入各自的结构体 */
 	patent.PickEveStruct();
-
 	/** 排序 */
 	patent.SortForEveVector();
-
 	/** 累加 */
 	patent.TransferOfAccumulation();
-	
-	/** 传递结构体 */
-	patent.AddTransferStruct();
-
 	/** 计算差值 */
 	patent.CalculateDifference();
-
+	/** 计算平均值 */
+	patent.CalculateAverage();
+	/** 计算R值 */
+	patent.CalculateRValue();
 	vector<double> first_max_d = patent.GetFirestMaxDIndex();
 
 	for (auto& max_d : first_max_d)
