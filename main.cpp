@@ -5,19 +5,19 @@ int main()
 {
 	Patent patent;
 
-	/** 读取csv文件 */
-	patent.ReadCSV();
+	///** 读取csv文件 */
+	//patent.ReadCSV();
 
-	/***/
-	patent.ManageD();
+	///***/
+	//patent.ManageD();
 
-	patent.ManageR();
+	//patent.ManageR();
 
-	//patent.ManageWZ();
+	////patent.ManageWZ();
 
-	patent.ManageIndex();
+	//patent.ManageIndex();
 
-	patent.WriteCSV();
+	patent.WriteJson();
 
 	return 0;
 }

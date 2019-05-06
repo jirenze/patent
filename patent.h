@@ -23,8 +23,8 @@ public:
 
 	/** 读取csv文件 */
 	void ReadCSV();
-	/** 写入csv文件 */
-	void WriteCSV();
+	/** 写入json文件 */
+	void WriteJson();
 	
 	/** 处理D值 */
 	void ManageD();
@@ -173,5 +173,8 @@ private:
 
 	/** 终止循环 */
 	bool end_ok;
+
+	/** json */
+	Json::Value json_root;
 };
 

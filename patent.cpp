@@ -39,11 +39,26 @@ void Patent::ReadCSV()
 	}
 }
 
-void Patent::WriteCSV()
+void Patent::WriteJson()
 {
 	/** Ð´ÎÄ¼þ */
-	ofstream out_file("C:\\Users\\jiren\\Desktop\\patent18\\out.csv", ios::out);
-	out_file.precision(12);
+	json_root["good"] = Json::Value("good");
+	Json::StreamWriterBuilder stream_w_builder;
+	shared_ptr<Json::StreamWriter> stream_writer(stream_w_builder.newStreamWriter());
+
+
+	ofstream out_file;
+	out_file.open("patent.json");
+	stream_writer->write(json_root, &out_file);
+	out_file.close();
+/*
+	ofstream os;
+
+	os.open("PersonalInfo");
+
+	os << sw.write(root);
+
+	os.close();
 
 	out_file << "instruction_num" << ','
 		<< "image_num" << ','
@@ -71,7 +86,7 @@ void Patent::WriteCSV()
 		<< "num_of_application" << ','
 		<< "current_num_of_patent" << ','
 		<< "type_of_application" << endl;
-
+*/
 
 }
 
