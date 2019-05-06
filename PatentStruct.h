@@ -1,19 +1,7 @@
 #pragma once
 #include <string>
-
 using namespace std;
 
-struct  Patent_Data_S
-{
-	/** 文献号 */
-	string literature;
-
-	/** 是否转让 */
-	int transfer;
-
-	/** 说明书页数 */
-	map <Enum_Patent, double> all_patent_data_S_num;
-};
 
 /** 顺序参照 */
 enum Enum_Patent
@@ -88,6 +76,17 @@ enum Enum_Patent
 	E_type_of_application = 27,
 };
 
+struct  Patent_Data_S
+{
+	/** 文献号 */
+	string literature;
+
+	/** 是否转让 */
+	int transfer;
+
+	/** 属性（每个专利一个Map) */
+	map <Enum_Patent, double> all_patent_data_S_num;
+};
 
 struct Base_Struct
 {
@@ -95,7 +94,7 @@ struct Base_Struct
 	string literature;
 
 	/** 是否转让 */
-	bool transfer;
+	int transfer;
 
 	/** 属性 */
 	double num_of_feature;

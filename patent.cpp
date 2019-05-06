@@ -1,6 +1,7 @@
 #include "patent.h"
 
 Patent::Patent()
+	:end_ok(true)
 {
 
 }
@@ -8,7 +9,8 @@ Patent::Patent()
 void Patent::ReadCSV()
 {
 	/** 打开文件 */
-	ifstream in_file("C:\\Users\\jiren\\Desktop\\patent18\\patentnow.csv", ios::in);
+
+	ifstream in_file("E:\\development\\patent\\patentnow.csv", ios::in);
 	string temp_line_str;
 
 	/** 检测能否打开 */
@@ -70,10 +72,65 @@ void Patent::WriteCSV()
 		<< "current_num_of_patent" << ','
 		<< "type_of_application" << endl;
 
-	for (auto& max_socre : max_complete_socre)
+	/*for (auto& max_socre : max_complete_socre)
 	{
 		out_file << max_socre << ',';
+	}*/
+}
+
+void Patent::ManageD()
+{
+	/** 处理数据，结构体写入 */
+	PickCSVData();
+
+	/** 写入各自的结构体 */
+	PickEveStruct();
+
+	/** 排序 */
+	SortForEveVector();
+
+	/** 累加EVE */
+	TransferOfAccumulation();
+
+	/** 计算差值D值 */
+	CalculateDifference();
+}
+
+void Patent::ManageR()
+{
+	/** 计算各项指标的均值 */
+	CalculateAverage();
+
+	/** 计算R值 */
+	CalculateRValue();
+
+	/** 筛选R值 */
+	SelectRvalue();
+}
+
+void Patent::ManageWZ()
+{
+	/** 计算W */
+	//CalculateWValue(w_data);
+
+	/** 计算Z */
+	//CalculateZValue(all_enum_patent,Z_total_vector);
+
+	/** 计算Z_total的D值 */
+	//CalculateZtotalD(Z_total_vector, Z_total_transfer);
+}
+
+void Patent::ManageIndex()
+{
+	while (end_ok)
+	{
+
+		/** 循环处理指标 */
+		CalculateIndexFor();
+
+		LeftoverIndex();
 	}
+
 }
 
 void Patent::PickCSVData()
@@ -101,7 +158,7 @@ void Patent::PickCSVData()
 		ss_stream << str_line[str_index];
 		double temp_double = 0.0;
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_instruction_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_instruction_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -109,7 +166,7 @@ void Patent::PickCSVData()
 		/** 4 附图个数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_image_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_image_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -117,7 +174,7 @@ void Patent::PickCSVData()
 		/** 5 文献引证数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_non_patent_citation_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_non_patent_citation_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -125,7 +182,7 @@ void Patent::PickCSVData()
 		/** 6 专利引证数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -133,7 +190,7 @@ void Patent::PickCSVData()
 		/** 7 引证本国专利数*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_of_domestic_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_of_domestic_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -141,7 +198,7 @@ void Patent::PickCSVData()
 		/** 8 引证外国专利数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_citation_of_foreign_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_of_foreign_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -149,7 +206,7 @@ void Patent::PickCSVData()
 		/** 9 专利类别 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_patent_type, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_patent_type, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -157,7 +214,7 @@ void Patent::PickCSVData()
 		/** 10 保护期 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_term_of_patent_protection, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_term_of_patent_protection, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -165,7 +222,7 @@ void Patent::PickCSVData()
 		/** 11 分类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -173,7 +230,7 @@ void Patent::PickCSVData()
 		/** 12 IPC大类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_IPC_large_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_IPC_large_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -181,7 +238,7 @@ void Patent::PickCSVData()
 		/** 13 IPC小类数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_IPC_sub_classify_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_IPC_sub_classify_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -189,7 +246,7 @@ void Patent::PickCSVData()
 		/** 14 同族专利数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_kin_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_kin_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -197,7 +254,7 @@ void Patent::PickCSVData()
 		/** 15 同族布局国家、地区数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_kin_of_country_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_kin_of_country_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -205,7 +262,7 @@ void Patent::PickCSVData()
 		/** 16 是否为PCT申请 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_PCT_apply, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_PCT_apply, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -213,7 +270,7 @@ void Patent::PickCSVData()
 		/** 17 是否为五国专利/四方专利 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_five_four_countries_patent, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_five_four_countries_patent, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -221,7 +278,7 @@ void Patent::PickCSVData()
 		/** 18 专利国别代码 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_country_code, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_country_code, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -229,7 +286,7 @@ void Patent::PickCSVData()
 		/** 19 申请日公开日时间间隔（年）*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_application_open_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_application_open_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -237,7 +294,7 @@ void Patent::PickCSVData()
 		/** 20 申请日授权日时间间隔 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_application_authorization_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_application_authorization_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -245,7 +302,7 @@ void Patent::PickCSVData()
 		/** 21 公开日授权日时间间隔 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_open_authorization_day_interval, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_open_authorization_day_interval, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -253,7 +310,7 @@ void Patent::PickCSVData()
 		/** 22 剩余有效期 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_survival_time, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_survival_time, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -261,7 +318,7 @@ void Patent::PickCSVData()
 		/** 23 是否有优先权 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_prority, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_prority, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -269,7 +326,7 @@ void Patent::PickCSVData()
 		/** 24 权项数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_right_num, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_right_num, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -277,7 +334,7 @@ void Patent::PickCSVData()
 		/** 25 发明人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_num_of_invention, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_num_of_invention, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -285,7 +342,7 @@ void Patent::PickCSVData()
 		/** 26 申请人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_num_of_application, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_num_of_application, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -293,7 +350,7 @@ void Patent::PickCSVData()
 		/** 27 当前专利权人数 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_current_num_of_patent, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_current_num_of_patent, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -301,7 +358,7 @@ void Patent::PickCSVData()
 		/** 28 申请人类型 */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
-		temp_patent_data->all_patent_data_S_num.insert(make_pair(E_type_of_application, temp_double));
+		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_type_of_application, temp_double));
 		++str_index;
 		ss_stream.clear();
 		temp_double = 0.0;
@@ -435,13 +492,6 @@ void Patent::CalculateDifference()
 	}
 }
 
-
-
-
-
-
-
-
 void Patent::CalculateAverage()
 {
 	double temp_total = 0.0f;
@@ -458,37 +508,7 @@ void Patent::CalculateAverage()
 }
 
 
-vector<double> Patent::GetFirestMaxDIndex()
-{
-	for (auto& transfer_data : transfer_all_data)
-	{
-		max_complete_socre.push_back(transfer_data.second->first_max_d);
-	}
-	return max_complete_socre;
-}
 
-void Patent::CalculateRValueM(Enum_Patent in_enum_first, Enum_Patent in_enum_second, vector<RValueCL>& in_R_value)
-{
-	double molecule = 0.0f;
-	double denominator_first = 0.0f;
-	double denominator_second = 0.0f;
-	RValueCL temp_r_valueCL;
-
-	for (int i = 0; i < vector_base_struct_num[in_enum_first].size(); ++i)
-	{
-		double first_value = vector_base_struct_num[in_enum_first][i]->num_of_feature - R_average[in_enum_first];
-		double second_value = vector_base_struct_num[in_enum_second][i]->num_of_feature - R_average[in_enum_second];
-
-		molecule += first_value * second_value;
-		denominator_first += pow(first_value, 2);
-		denominator_second += pow(second_value, 2);
-	}
-
-	temp_r_valueCL.first_value = in_enum_first;
-	temp_r_valueCL.second_value = in_enum_second;
-	temp_r_valueCL.r_value = molecule / (denominator_first * denominator_second);
-	in_R_value.push_back(temp_r_valueCL);
-}
 
 
 
@@ -607,70 +627,27 @@ void Patent::CalculateRValue()
 	/** 专利权人规模  申请人类型 */
 	CalculateRValueM(E_current_num_of_patent, E_type_of_application, R_value_Inventor);
 }
-void Patent::SelectRvalue()
+void Patent::CalculateRValueM(Enum_Patent in_enum_first, Enum_Patent in_enum_second, vector<RValueCL>& in_R_value)
 {
-	SelectRvalueM(R_value_Technology);
-	SelectRvalueM(R_value_IPC);
-	SelectRvalueM(R_value_Internationalization);
-	SelectRvalueM(R_value_Time);
-	SelectRvalueM(R_value_Right);
-	SelectRvalueM(R_value_Inventor);
+	double molecule = 0.0f;
+	double denominator_first = 0.0f;
+	double denominator_second = 0.0f;
+	RValueCL temp_r_valueCL;
 
-	/** 去重 */
-	set<Enum_Patent> temp_set(selected_enum_patent.begin(), selected_enum_patent.end());
-	selected_enum_patent.assign(temp_set.begin(), temp_set.end());
-
-	vector<Enum_Patent>::iterator temp_iter;
-
-	vector<Enum_Patent> temp_all_enum_patent = all_enum_patent;
-	for (auto& temp_selected_enum : selected_enum_patent)
+	for (int i = 0; i < vector_base_struct_num[in_enum_first].size(); ++i)
 	{
-		for (temp_iter = temp_all_enum_patent.begin(); temp_iter != temp_all_enum_patent.end();)
-		{
-			if (*temp_iter == temp_selected_enum)
-			{
-				temp_iter = temp_all_enum_patent.erase(temp_iter);
-			}
-			else
-			{
-				++temp_iter;
-			}
-		}
-	}
-	selected_enum_patent.clear();
-	selected_enum_patent = temp_all_enum_patent;
-}
+		double first_value = vector_base_struct_num[in_enum_first][i]->num_of_feature - R_average[in_enum_first];
+		double second_value = vector_base_struct_num[in_enum_second][i]->num_of_feature - R_average[in_enum_second];
 
-void Patent::SelectRafterD()
-{
-	/** 总的transfer结构体数据 */
-	for (auto& temp_select_num : selected_enum_patent)
-	{
-		transfer_after_data.insert(make_pair(temp_select_num, transfer_all_data[temp_select_num]));
-	}
-}
-
-void Patent::CalculateWValue()
-{
-	double D_total = 0.0;
-	for (auto& temp_transfer_after : transfer_after_data)
-	{
-		D_total += temp_transfer_after.second->first_max_d;
+		molecule += first_value * second_value;
+		denominator_first += pow(first_value, 2);
+		denominator_second += pow(second_value, 2);
 	}
 
-	for (auto& temp_transfer_after : transfer_after_data)
-	{
-		double temp_w_once = temp_transfer_after.second->first_max_d / D_total;
-		w_data.insert(make_pair(temp_transfer_after.first, temp_w_once));
-	}
-}
-
-void Patent::CalculateZValue()
-{
-	for (auto& temp_base_strcut_num : vector_base_struct_num)
-	{
-		temp_base_strcut_num;
-	}
+	temp_r_valueCL.first_value = in_enum_first;
+	temp_r_valueCL.second_value = in_enum_second;
+	temp_r_valueCL.r_value = molecule / sqrt(denominator_first * denominator_second);
+	in_R_value.push_back(temp_r_valueCL);
 }
 
 void Patent::SelectRvalueM(vector<RValueCL>& in_R_value)
@@ -693,3 +670,366 @@ void Patent::AddEnumPatent()
 	}
 }
 
+
+void Patent::SelectRafterD()
+{
+	/** 总的transfer结构体数据 */
+	for (auto& temp_select_num : selected_enum_patent)
+	{
+		transfer_after_data.insert(make_pair(temp_select_num, transfer_all_data[temp_select_num]));
+	}
+}
+void Patent::SelectRvalue()
+{
+	SelectRvalueM(R_value_Technology);
+	SelectRvalueM(R_value_IPC);
+	SelectRvalueM(R_value_Internationalization);
+	SelectRvalueM(R_value_Time);
+	SelectRvalueM(R_value_Right);
+	SelectRvalueM(R_value_Inventor);
+
+	/** 去重 */
+	set<Enum_Patent> temp_set(selected_enum_patent.begin(), selected_enum_patent.end());
+	selected_enum_patent.assign(temp_set.begin(), temp_set.end());
+
+	vector<Enum_Patent>::iterator temp_iter;
+
+	vector<Enum_Patent> temp_all_enum_patent = all_enum_patent;
+	for (auto& temp_selected_enum : selected_enum_patent)
+	{
+		for (temp_iter = temp_all_enum_patent.begin(); temp_iter != temp_all_enum_patent.end();)
+		{
+			if (*temp_iter == temp_selected_enum)
+			{
+				pass_selected_enum_patent.push_back(temp_selected_enum);
+				temp_iter = temp_all_enum_patent.erase(temp_iter);
+			}
+			else
+			{
+				++temp_iter;
+			}
+		}
+	}
+	selected_enum_patent.clear();
+	selected_enum_patent = temp_all_enum_patent;
+	SelectRafterD();
+}
+
+
+void Patent::CalculateWValue(map<Enum_Patent, double>& in_w_data)
+{
+	double D_total = 0.0;
+	for (auto& temp_transfer_after : transfer_after_data)
+	{
+		D_total += temp_transfer_after.second->first_max_d;
+	}
+
+	for (auto& temp_transfer_after : transfer_after_data)
+	{
+		double temp_w_once = temp_transfer_after.second->first_max_d / D_total;
+		in_w_data.insert(make_pair(temp_transfer_after.first, temp_w_once));
+	}
+}
+
+void Patent::CalculateZValue(vector<Enum_Patent>& in_all_enum_patent, vector<shared_ptr<Base_Struct>>& in_Z_total_vector, map<Enum_Patent, double> in_w_data)
+{
+	in_Z_total_vector.clear();
+	for (auto& temp_patent_data : patent_all_data)
+	{
+		shared_ptr<Base_Struct> temp_once_patent_Z = make_shared<Base_Struct>();
+		for (auto& temp_once_enum_patent : in_all_enum_patent)
+		{
+			temp_once_patent_Z->num_of_feature += temp_patent_data->all_patent_data_S_num[temp_once_enum_patent] * in_w_data[temp_once_enum_patent];
+		}
+		temp_once_patent_Z->literature = temp_patent_data->literature;
+		temp_once_patent_Z->transfer = temp_patent_data->transfer;
+		temp_once_patent_Z->num_of_feature *= 100.0;
+		in_Z_total_vector.push_back(temp_once_patent_Z);
+	}
+
+	/** 降序排列Z值 */
+	for (int i = 0; i < in_Z_total_vector.size() - 1; ++i)
+	{
+		for (int j = 0; j < in_Z_total_vector.size() - i - 1; ++j)
+		{
+			if (in_Z_total_vector[j]->num_of_feature < in_Z_total_vector[j + 1]->num_of_feature)
+			{
+				swap(in_Z_total_vector[j], in_Z_total_vector[j + 1]);
+			}
+		}
+	}
+}
+
+void Patent::CalculateZtotalD(vector<shared_ptr<Base_Struct>>& in_Z_total_vector, shared_ptr<Transfer_Data>& in_Z_total_transfer)
+{
+	/** 转让次数，为转让次数 */
+	double transfer_add_index = 0.0;
+	double untransfer_add_index = 0.0;
+	double temp_num = temp_num_init;
+	temp_num = in_Z_total_vector[0]->num_of_feature;
+	in_Z_total_transfer = make_shared<Transfer_Data>();
+	for (auto& temp_z_total : in_Z_total_vector)
+	{
+		/** 同一专利群 */
+		if (temp_num == temp_z_total->num_of_feature)
+		{
+			/** 如果转让 */
+			if (temp_z_total->transfer == 1)
+			{
+				++transfer_add_index;
+			}
+			/** 如果未转让 */
+			if (temp_z_total->transfer == 0)
+			{
+				++untransfer_add_index;
+			}
+			continue;
+		}
+		/** 不同专利群 */
+		else
+		{
+			in_Z_total_transfer->transfer_add_index.push_back(transfer_add_index);
+			in_Z_total_transfer->untransfer_add_index.push_back(untransfer_add_index);
+
+			/** 如果转让 */
+			if (temp_z_total->transfer == 1)
+			{
+				++transfer_add_index;
+			}
+			/** 如果未转让 */
+			if (temp_z_total->transfer == 0)
+			{
+				++untransfer_add_index;
+			}
+
+			temp_num = temp_z_total->num_of_feature;
+		}
+	}
+	
+	/** 最后一次的 */
+	in_Z_total_transfer->transfer_add_index.push_back(transfer_add_index);
+	in_Z_total_transfer->untransfer_add_index.push_back(untransfer_add_index);
+	/** 总共的专利转让和为转让次数 */
+	in_Z_total_transfer->transfer_num = double(transfer_add_index);
+	in_Z_total_transfer->untransfer_num = double(untransfer_add_index);
+
+	/** 最大差值 */
+	double temp_transfer_difference = 0.0;
+
+	/** 每一项指标 */
+	for (int i = 0; i < in_Z_total_transfer->transfer_add_index.size(); i++)
+	{
+		double transfer_difference = in_Z_total_transfer->transfer_add_index[i] / in_Z_total_transfer->transfer_num
+			- in_Z_total_transfer->untransfer_add_index[i] / in_Z_total_transfer->untransfer_num;
+		double abs_transfer_difference = fabs(transfer_difference);
+		if (temp_transfer_difference < abs_transfer_difference)
+		{
+			temp_transfer_difference = abs_transfer_difference;
+		}
+	}
+
+	/** 求的最大差值 */
+	in_Z_total_transfer->first_max_d = temp_transfer_difference;
+}
+
+
+
+void Patent::CalculateIndexFor()
+{
+	/** 处理循环后的transfer */
+	for (auto& temp_pass_selected_enum : pass_selected_enum_patent)
+	{
+		map<Enum_Patent, shared_ptr<Transfer_Data>>::iterator iter_transfer = transfer_after_data.find(temp_pass_selected_enum);
+		if (iter_transfer != transfer_after_data.end())
+		{
+			transfer_after_data.erase(temp_pass_selected_enum);
+		}
+	}
+
+	/** 筛选后的W值  用来计算没有去掉指标的Z值 */
+	w_data_fifter_for_z.clear();
+	CalculateWValue(w_data_fifter_for_z);
+
+
+	/** 计算所有指标 除掉后的W */
+	w_data_fifter.clear();
+	for (auto& selected_num_once : selected_enum_patent)
+	{
+		double D_total = 0.0;
+		map<Enum_Patent, double> w_data_once;
+		for (auto& temp_transfer_after_once : transfer_after_data)
+		{
+			if (selected_num_once != temp_transfer_after_once.first)
+			{
+				D_total += temp_transfer_after_once.second->first_max_d;
+			}
+		}
+
+		for (auto& temp_transfer_after_second : transfer_after_data)
+		{
+			if (selected_num_once != temp_transfer_after_second.first)
+			{
+				double temp_w_once = temp_transfer_after_second.second->first_max_d / D_total;
+				w_data_once.insert(make_pair(temp_transfer_after_second.first, temp_w_once));
+			}
+		}
+		w_data_fifter.insert(make_pair(selected_num_once, w_data_once));
+	}
+	CalculateZFifter();
+}
+
+void Patent::LeftoverIndex()
+{
+	double max_d_value = 0.0;
+	Enum_Patent temp_enum_max;
+	for (auto& Z_fifter_transfer_once : Z_total_fifter_transfer)
+	{
+		if (Z_fifter_transfer_once.second->first_max_d > max_d_value)
+		{
+			max_d_value = Z_fifter_transfer_once.second->first_max_d;
+			temp_enum_max = Z_fifter_transfer_once.first;
+		}
+	}
+
+	bool temp_end_ok = false;
+
+	if (max_d_value > Z_fifter_total_transfer->first_max_d)
+	{
+		temp_end_ok = true;
+		pass_selected_enum_patent.push_back(temp_enum_max);
+	}
+	vector<Enum_Patent> temp_selected_enum_patent;
+	for (auto& temp_selected_next : selected_enum_patent)
+	{
+		if (temp_selected_next!= temp_enum_max)
+		{
+			temp_selected_enum_patent.push_back(temp_selected_next);
+		}
+	}
+	selected_enum_patent.clear();
+	selected_enum_patent = temp_selected_enum_patent;
+
+	if (!temp_end_ok)
+	{
+		end_ok = temp_end_ok;
+	}
+
+}
+
+
+void Patent::CalculateZFifter()
+{
+	Z_fifter_transfer.clear();
+	CalculateZValue(selected_enum_patent, Z_fifter_total_vector, w_data_fifter_for_z);
+	for (auto& w_data_fifter_once : w_data_fifter)
+	{
+		vector<shared_ptr<Base_Struct>> temp_Z_total_vector;
+		for (auto& temp_patent_data : patent_all_data)
+		{
+			shared_ptr<Base_Struct> temp_once_patent_Z = make_shared<Base_Struct>();
+			for (auto& temp_once_enum_patent : selected_enum_patent)
+			{
+				if (temp_once_enum_patent != w_data_fifter_once.first)
+				{
+					temp_once_patent_Z->num_of_feature += temp_patent_data->all_patent_data_S_num[temp_once_enum_patent] * w_data_fifter_once.second[temp_once_enum_patent];
+				}
+			}
+			temp_once_patent_Z->literature = temp_patent_data->literature;
+			temp_once_patent_Z->transfer = temp_patent_data->transfer;
+			temp_once_patent_Z->num_of_feature *= 100.0;
+			temp_Z_total_vector.push_back(temp_once_patent_Z);
+		}
+
+		/** 降序排列Z值 */
+		for (int i = 0; i < temp_Z_total_vector.size() - 1; ++i)
+		{
+			for (int j = 0; j < temp_Z_total_vector.size() - i - 1; ++j)
+			{
+				if (temp_Z_total_vector[j]->num_of_feature < temp_Z_total_vector[j + 1]->num_of_feature)
+				{
+					swap(temp_Z_total_vector[j], temp_Z_total_vector[j + 1]);
+				}
+			}
+		}
+		Z_fifter_transfer.insert(make_pair(w_data_fifter_once.first, temp_Z_total_vector));
+	}
+
+
+	Z_total_fifter_transfer.clear();
+	/** 计算总的Z结构体 */
+	CalculateZtotalD(Z_fifter_total_vector,Z_fifter_total_transfer);
+
+	for (auto& Z_fifter_transfer_once : Z_fifter_transfer)
+	{
+		/** 转让次数，为转让次数 */
+		double transfer_add_index = 0.0;
+		double untransfer_add_index = 0.0;
+		double temp_num = temp_num_init;
+		temp_num = Z_fifter_transfer_once.second[0]->num_of_feature;
+		shared_ptr<Transfer_Data> temp_Z_transfer = make_shared<Transfer_Data>();
+		for (auto& temp_z_total : Z_fifter_transfer_once.second)
+		{
+			/** 同一专利群 */
+			if (temp_num == temp_z_total->num_of_feature)
+			{
+				/** 如果转让 */
+				if (temp_z_total->transfer == 1)
+				{
+					++transfer_add_index;
+				}
+				/** 如果未转让 */
+				if (temp_z_total->transfer == 0)
+				{
+					++untransfer_add_index;
+				}
+				continue;
+			}
+			/** 不同专利群 */
+			else
+			{
+				temp_Z_transfer->transfer_add_index.push_back(transfer_add_index);
+				temp_Z_transfer->untransfer_add_index.push_back(untransfer_add_index);
+
+				/** 如果转让 */
+				if (temp_z_total->transfer == 1)
+				{
+					++transfer_add_index;
+				}
+				/** 如果未转让 */
+				if (temp_z_total->transfer == 0)
+				{
+					++untransfer_add_index;
+				}
+
+				temp_num = temp_z_total->num_of_feature;
+			}
+		}
+
+		/** 最后一次的 */
+		temp_Z_transfer->transfer_add_index.push_back(transfer_add_index);
+		temp_Z_transfer->untransfer_add_index.push_back(untransfer_add_index);
+		/** 总共的专利转让和为转让次数 */
+		temp_Z_transfer->transfer_num = double(transfer_add_index);
+		temp_Z_transfer->untransfer_num = double(untransfer_add_index);
+
+		/** 最大差值 */
+		double temp_transfer_difference = 0.0;
+
+		/** 每一项指标 */
+
+		for (int i = 0; i < temp_Z_transfer->transfer_add_index.size(); i++)
+		{
+			double transfer_difference = temp_Z_transfer->transfer_add_index[i] / temp_Z_transfer->transfer_num
+				- temp_Z_transfer->untransfer_add_index[i] / temp_Z_transfer->untransfer_num;
+			double abs_transfer_difference = fabs(transfer_difference);
+			if (temp_transfer_difference < abs_transfer_difference)
+			{
+				temp_transfer_difference = abs_transfer_difference;
+			}
+		}
+
+		/** 求的最大差值 */
+		temp_Z_transfer->first_max_d = temp_transfer_difference;
+		Z_total_fifter_transfer.insert(make_pair(Z_fifter_transfer_once.first, temp_Z_transfer));
+	}
+}
