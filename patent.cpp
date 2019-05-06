@@ -10,7 +10,7 @@ void Patent::ReadCSV()
 {
 	/** 打开文件 */
 
-	ifstream in_file("E:\\development\\patent\\patentnow.csv", ios::in);
+	ifstream in_file("E:\\patent\\patentnow.csv", ios::in);
 	string temp_line_str;
 
 	/** 检测能否打开 */
@@ -72,10 +72,7 @@ void Patent::WriteCSV()
 		<< "current_num_of_patent" << ','
 		<< "type_of_application" << endl;
 
-	/*for (auto& max_socre : max_complete_socre)
-	{
-		out_file << max_socre << ',';
-	}*/
+
 }
 
 void Patent::ManageD()
@@ -130,6 +127,7 @@ void Patent::ManageIndex()
 		/** 循环处理除掉1个指标后的Z值计算数据结构 */
 		CalculateZFifter();
 
+		/** 判断 */
 		LeftoverIndex();
 	}
 
@@ -1019,12 +1017,12 @@ void Patent::LeftoverIndex()
 	}
 
 	bool temp_end_ok = false;
-
 	if (max_d_value > Z_fifter_full_transfer->first_max_d)
 	{
 		temp_end_ok = true;
 		pass_selected_enum_patent.push_back(temp_enum_max);
 	}
+
 	vector<Enum_Patent> temp_selected_enum_patent;
 	for (auto& temp_selected_next : selected_enum_patent)
 	{

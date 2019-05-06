@@ -13,7 +13,7 @@ int main()
 
 	patent.ManageR();
 
-	patent.ManageWZ();
+	//patent.ManageWZ();
 
 	patent.ManageIndex();
 

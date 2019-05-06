@@ -11,7 +11,8 @@
 
 #include "PatentStruct.h"
 #include "patent.h"
-	
+#include "json.h"
+
 using namespace std;
 
 class Patent
