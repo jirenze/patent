@@ -42,14 +42,18 @@ void Patent::ReadCSV()
 void Patent::WriteJson()
 {
 	/** Ð´ÎÄ¼þ */
-	json_root["good"] = Json::Value("good");
+	json_root["great"] = Json::Value("great");
 	Json::StreamWriterBuilder stream_w_builder;
 	shared_ptr<Json::StreamWriter> stream_writer(stream_w_builder.newStreamWriter());
 
 
-	ofstream out_file;
+	/*ofstream out_file;
 	out_file.open("patent.json");
 	stream_writer->write(json_root, &out_file);
+	out_file.close();*/
+	ofstream out_file;
+	out_file.open("patent1.json");
+	out_file << json_root.toStyledString();
 	out_file.close();
 /*
 	ofstream os;
