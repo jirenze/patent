@@ -11,7 +11,8 @@
 
 #include "PatentStruct.h"
 #include "patent.h"
-	
+#include "json.h"
+
 using namespace std;
 
 class Patent
@@ -22,8 +23,23 @@ public:
 
 	/** 读取csv文件 */
 	void ReadCSV();
-	/** 写入csv文件 */
-	void WriteCSV();
+	/** 写入json文件 */
+	void WriteJson();
+	
+	/** 处理D值 */
+	void ManageD();
+
+	/** 处理R值 */
+	void ManageR();
+
+	/** 处理W Z值 */
+	void ManageWZ();
+
+	/** 处理指标 */
+	void ManageIndex();
+public:
+
+
 	/** 处理数据，结构体写入 */
 	void PickCSVData();
 
@@ -36,7 +52,7 @@ public:
 	/** 累加EVE */
 	void TransferOfAccumulation();
 
-	/** 计算差值 */
+	/** 计算差值D值 */
 	void CalculateDifference();
 
 	/** 计算各项指标的均值 */
@@ -47,23 +63,38 @@ public:
 
 	/** 筛选R值 */
 	void SelectRvalue();
-	
-	/** 得到经过R值筛选后的D值的指标数据 */
-	void SelectRafterD();
 
-	/** 计算W */
-	void CalculateWValue();
 
-	/** 计算Z */
-	void CalculateZValue();
+	/** 计算W 全指标 */
+	void CalculateWValueFull(map<Enum_Patent, double>& in_w_data_fifter_for_z);
+
+	/** 计算W 循环指标 */
+	void CalculateWValueDelete(map<Enum_Patent, map<Enum_Patent, double>>& in_w_data);
+
+	/** 计算Z，全指标 */
+	void CalculateZValueFull(vector<Enum_Patent>& in_selected_enum_patent, vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, map<Enum_Patent, double>& in_w_data_fifter_for_z);
+
+	/** 计算Z，循环指标 */
+	void CalculateZValueDelete(vector<Enum_Patent>& in_selected_enum_patent, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector, map<Enum_Patent, map<Enum_Patent, double>>& in_w_data_fifter_for_all);
+
+
+	/** 计算Z_total的D值，全指标 */
+	void CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, shared_ptr<Transfer_Data>& in_Z_fifter_full_transfer);
+
+	/** 计算Z_total的D值，循环指标 */
+	void CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>& in_Z_fifter_delete_transfer, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector);
+
+
+
+	/** 循环处理指标 */
+	void CalculateIndexForW();
+
+	/** 比较除掉指标后 剩下的指标 */
+	void LeftoverIndex();
+
 public: 
-	/** 得到最大的D值 */
-	vector<double> GetFirestMaxDIndex();
-	/** 各项数据的D值 */
-	vector<double> max_complete_socre;
 	/** 各项指标的均值 */
 	map<Enum_Patent, double> R_average;
-
 
 	/**-------- R值 ------*/
 	/** 各项数据的R值 技术类 */
@@ -79,8 +110,6 @@ public:
 	/** 各项数据的R值 发明人 申请人 */
 	vector<RValueCL> R_value_Inventor;
 	
-	/** 大于0.7 筛选剩下的指标 */
-	vector<Enum_Patent> selected_enum_patent;
 private:
 
 	/** 计算R值 （工具）*/
@@ -92,7 +121,11 @@ private:
 	/** 添加枚举，用于筛选 */
 	void AddEnumPatent();
 
+	/** 得到经过R值筛选后的D值的指标数据 */
+	void SelectRafterD();
 
+	/** 循环处理除掉1个指标后的Z值计算数据结构 */
+	void CalculateZFifter();
 private: 
 	/** 存储的string */
 	vector<vector<string>> str_vector;
@@ -109,16 +142,39 @@ private:
 	/** 经过R值筛选后的D值transfer结构体数据 */
 	map<Enum_Patent, shared_ptr<Transfer_Data>> transfer_after_data;
 
-	/** w总的权重 */
-	map<Enum_Patent, double> w_data;
-
-
-
+	/** 大于0.7 筛选剩下的指标 */
+	vector<Enum_Patent> selected_enum_patent;
+	/** 去掉的指标 */
+	vector<Enum_Patent> pass_selected_enum_patent;
 
 	/** 存储的所有枚举值 */
 	vector<Enum_Patent> all_enum_patent;
 
 	/** 初始化群编号数值 */
 	const double temp_num_init = 1000.0f;
+
+
+private:
+	/** 筛选后的W值  用来计算没有去掉指标的Z值 */
+	map<Enum_Patent, double> w_data_fifter_for_z;
+	/** 筛选后的W值 顺序去掉指标 */
+	map<Enum_Patent, map<Enum_Patent, double>> w_data_fifter_for_all;
+
+
+	/** 筛选后Z的总值， 没有去掉指标 */
+	vector<shared_ptr<Base_Struct>> Z_fifter_full_vector;
+	/** 筛选后的 总的Z值 顺序去掉指标 */
+	map<Enum_Patent, vector<shared_ptr<Base_Struct>>> Z_fifter_delete_vector;
+
+	/** 总的Z值结构体数据 */
+	shared_ptr<Transfer_Data> Z_fifter_full_transfer;
+	/** 总的Z值结构体数据 顺序去掉指标 */
+	map<Enum_Patent,shared_ptr<Transfer_Data>> Z_fifter_delete_transfer;
+
+	/** 终止循环 */
+	bool end_ok;
+
+	/** json */
+	Json::Value json_root;
 };
 

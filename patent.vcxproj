@@ -84,6 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>E:\patent\json\include\json</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,12 +116,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="json\src\lib_json\json_tool.h" />
     <ClInclude Include="patent.h" />
     <ClInclude Include="PatentStruct.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="json\src\lib_json\json_reader.cpp" />
+    <ClCompile Include="json\src\lib_json\json_value.cpp" />
+    <ClCompile Include="json\src\lib_json\json_writer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="patent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="json\src\lib_json\json_valueiterator.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

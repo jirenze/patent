@@ -1,94 +1,7 @@
 #pragma once
 #include <string>
-
 using namespace std;
 
-struct  Patent_Data_S
-{
-	/** 文献号 */
-	map<Enum_Patent, string> literature;
-
-	/** 是否转让 */
-	map < Enum_Patent, int> transfer;
-
-	/** 说明书页数 */
-	map < Enum_Patent, double> instruction_num;
-
-	/** 附图个数 */
-	map < Enum_Patent, double> image_num;
-
-	/** 文献引证数 */
-	map < Enum_Patent, double> non_patent_citation_num;
-
-	/** 专利引证数 */
-	map < Enum_Patent, double> citation_num;
-
-	/** 引证本国专利数*/
-	map < Enum_Patent, double> citation_of_domestic_num;
-
-	/** 引证外国专利数 */
-	map < Enum_Patent, double> citation_of_foreign_num;
-
-	/** 专利类别 */
-	map < Enum_Patent, double> patent_type;
-
-	/** 保护期 */
-	map < Enum_Patent, double> term_of_patent_protection;
-
-	/** 分类数 */
-	map < Enum_Patent, double> classify_num;
-
-	/** IPC大类数 */
-	map < Enum_Patent, double> IPC_large_classify_num;
-
-	/** IPC小类数 */
-	map < Enum_Patent, double> IPC_sub_classify_num;
-
-	/** 同族专利数 */
-	map < Enum_Patent, double> kin_num;
-
-	/** 同族布局国家、地区数 */
-	map < Enum_Patent, double> kin_of_country_num;
-
-	/** 是否为PCT申请 */
-	map < Enum_Patent, double> PCT_apply;
-
-	/** 是否为五国专利/四方专利 */
-	map < Enum_Patent, double> five_four_countries_patent;
-
-	/** 专利国别代码 */
-	map < Enum_Patent, double> country_code;
-
-	/** 申请日公开日时间间隔（年）*/
-	map < Enum_Patent, double> application_open_day_interval;
-
-	/** 申请日授权日时间间隔 */
-	map < Enum_Patent, double> application_authorization_day_interval;
-
-	/** 公开日授权日时间间隔 */
-	map < Enum_Patent, double> open_authorization_day_interval;
-
-	/** 剩余有效期 */
-	map < Enum_Patent, double> survival_time;
-
-	/** 是否有优先权 */
-	map < Enum_Patent, double> prority;
-
-	/** 权项数 */
-	map < Enum_Patent, double> right_num;
-
-	/** 发明人数 */
-	map < Enum_Patent, double> num_of_invention;
-
-	/** 申请人数 */
-	map < Enum_Patent, double> num_of_application;
-
-	/** 专利权人数 */
-	map < Enum_Patent, double> current_num_of_patent;
-
-	/** 申请人类型 */
-	map < Enum_Patent, double> type_of_application;
-};
 
 /** 顺序参照 */
 enum Enum_Patent
@@ -163,6 +76,17 @@ enum Enum_Patent
 	E_type_of_application = 27,
 };
 
+struct  Patent_Data_S
+{
+	/** 文献号 */
+	string literature;
+
+	/** 是否转让 */
+	int transfer;
+
+	/** 属性（每个专利一个Map) */
+	map <Enum_Patent, double> all_patent_data_S_num;
+};
 
 struct Base_Struct
 {
@@ -170,7 +94,7 @@ struct Base_Struct
 	string literature;
 
 	/** 是否转让 */
-	bool transfer;
+	int transfer;
 
 	/** 属性 */
 	double num_of_feature;
