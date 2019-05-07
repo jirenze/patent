@@ -159,6 +159,8 @@ private:
 	/**-------- R值 ------*/
 	/** 各项数据的R值 技术类 */
 	vector<RValueCL> R_value_Technology;
+	/** 各项数据的R值 引证类 */
+	vector<RValueCL> R_value_Citation;
 	/** 各项数据的R值 IPC */
 	vector<RValueCL> R_value_IPC;
 	/** 各项数据的R值 国际化 */

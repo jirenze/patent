@@ -10,7 +10,7 @@ void Patent::ReadCSV()
 {
 	/** 打开文件 */
 
-	ifstream in_file("E:\\development\\patent\\patentok.csv", ios::in);
+	ifstream in_file("E:\\development\\patent\\patent18\\patentok.csv", ios::in);
 	string temp_line_str;
 
 	/** 检测能否打开 */
