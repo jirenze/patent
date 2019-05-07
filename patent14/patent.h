@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -21,63 +21,63 @@ public:
 	Patent();
 	~Patent() {};
 
-	/** ¶ÁÈ¡csvÎÄ¼ş */
+	/** è¯»å–csvæ–‡ä»¶ */
 	void ReadCSV();
 
-	/** Ğ´ÈëjsonÎÄ¼ş */
+	/** å†™å…¥jsonæ–‡ä»¶ */
 	void WriteJson();
 	
-	/** ´¦ÀíDÖµ */
+	/** å¤„ç†Då€¼ */
 	void ManageD();
 
-	/** ´¦ÀíRÖµ */
+	/** å¤„ç†Rå€¼ */
 	void ManageR();
 
-	/** ´¦ÀíWZÖµ */
+	/** å¤„ç†WZå€¼ */
 	void ManageIndex();
 
 
 private:
-	/** ´¦ÀíÊı¾İ£¬½á¹¹ÌåĞ´Èë */
+	/** å¤„ç†æ•°æ®ï¼Œç»“æ„ä½“å†™å…¥ */
 	void PickCSVData();
 
-	/** Ğ´Èë¸÷×ÔµÄ½á¹¹Ìå */
+	/** å†™å…¥å„è‡ªçš„ç»“æ„ä½“ */
 	void PickEveStruct();
 
-	/** enum×ª»»string */
+	/** enumè½¬æ¢string */
 	void EnumToString();
 
 	/**--------- D -------*/
-	/** ÅÅĞò */
+	/** æ’åº */
 	void SortForEveVector();
 
-	/** ÀÛ¼ÓEVE */
+	/** ç´¯åŠ EVE */
 	void TransferOfAccumulation();
 
-	/** ¼ÆËã²îÖµDÖµ */
+	/** è®¡ç®—å·®å€¼Då€¼ */
 	void CalculateDifference();
 
 
 	/**--------- R -------*/
-	/** ¼ÆËã¸÷ÏîÖ¸±êµÄ¾ùÖµ */
+	/** è®¡ç®—å„é¡¹æŒ‡æ ‡çš„å‡å€¼ */
 	void CalculateAverage();
 
-	/** ¼ÆËãRÖµ */
+	/** è®¡ç®—Rå€¼ */
 	void CalculateRValue();
 
-	/** É¸Ñ¡RÖµ */
+	/** ç­›é€‰Rå€¼ */
 	void SelectRvalue();
 
 
 
 	/**-------- Z ---------*/
-	/** Ñ­»·´¦ÀíÖ¸±ê */
+	/** å¾ªç¯å¤„ç†æŒ‡æ ‡ */
 	void CalculateIndexForW();
 
-	/** Ñ­»·´¦Àí³ıµô1¸öÖ¸±êºóµÄZÖµ¼ÆËãÊı¾İ½á¹¹ */
+	/** å¾ªç¯å¤„ç†é™¤æ‰1ä¸ªæŒ‡æ ‡åçš„Zå€¼è®¡ç®—æ•°æ®ç»“æ„ */
 	void CalculateZFifter();
 
-	/** ±È½Ï³ıµôÖ¸±êºó Ê£ÏÂµÄÖ¸±ê */
+	/** æ¯”è¾ƒé™¤æ‰æŒ‡æ ‡å å‰©ä¸‹çš„æŒ‡æ ‡ */
 	void LeftoverIndex();
 
 
@@ -85,115 +85,118 @@ private:
 	
 private:
 
-	/** ¼ÆËãRÖµ £¨¹¤¾ß£©*/
+	/** è®¡ç®—Rå€¼ ï¼ˆå·¥å…·ï¼‰*/
 	void CalculateRValueM(Enum_Patent in_enum_first, Enum_Patent in_enum_second, vector<RValueCL>& in_R_value);
 
-	/** É¸Ñ¡RÖµ (¹¤¾ß)*/
+	/** ç­›é€‰Rå€¼ (å·¥å…·)*/
 	void SelectRvalueM(vector<RValueCL>& in_R_value);
 
-	/** Ìí¼ÓÃ¶¾Ù£¬ÓÃÓÚÉ¸Ñ¡ */
+	/** æ·»åŠ æšä¸¾ï¼Œç”¨äºç­›é€‰ */
 	void AddEnumPatent();
 
-	/** µÃµ½¾­¹ıRÖµÉ¸Ñ¡ºóµÄDÖµµÄÖ¸±êÊı¾İ */
+	/** å¾—åˆ°ç»è¿‡Rå€¼ç­›é€‰åçš„Då€¼çš„æŒ‡æ ‡æ•°æ® */
 	void SelectRafterD();
 
 
-	/** ¼ÆËãW È«Ö¸±ê */
+	/** è®¡ç®—W å…¨æŒ‡æ ‡ */
 	void CalculateWValueFull(map<Enum_Patent, double>& in_w_data_fifter_for_z);
 
-	/** ¼ÆËãW Ñ­»·Ö¸±ê */
+	/** è®¡ç®—W å¾ªç¯æŒ‡æ ‡ */
 	void CalculateWValueDelete(map<Enum_Patent, map<Enum_Patent, double>>& in_w_data);
 
-	/** ¼ÆËãZ£¬È«Ö¸±ê */
+	/** è®¡ç®—Zï¼Œå…¨æŒ‡æ ‡ */
 	void CalculateZValueFull(vector<Enum_Patent>& in_selected_enum_patent, vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, map<Enum_Patent, double>& in_w_data_fifter_for_z);
 
-	/** ¼ÆËãZ£¬Ñ­»·Ö¸±ê */
+	/** è®¡ç®—Zï¼Œå¾ªç¯æŒ‡æ ‡ */
 	void CalculateZValueDelete(vector<Enum_Patent>& in_selected_enum_patent, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector, map<Enum_Patent, map<Enum_Patent, double>>& in_w_data_fifter_for_all);
 
-	/** ¼ÆËãZ_totalµÄDÖµ£¬È«Ö¸±ê */
+	/** è®¡ç®—Z_totalçš„Då€¼ï¼Œå…¨æŒ‡æ ‡ */
 	void CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, shared_ptr<Transfer_Data>& in_Z_fifter_full_transfer);
 
-	/** ¼ÆËãZ_totalµÄDÖµ£¬Ñ­»·Ö¸±ê */
+	/** è®¡ç®—Z_totalçš„Då€¼ï¼Œå¾ªç¯æŒ‡æ ‡ */
 	void CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>& in_Z_fifter_delete_transfer, map<Enum_Patent, vector<shared_ptr<Base_Struct>>>& in_Z_fifter_delete_vector);
 
-	/**------------- ĞòÁĞ»¯ -----------------*/
+	/**------------- åºåˆ—åŒ– -----------------*/
 
 private: 
-	/** ´æ´¢µÄstring */
+	/** å­˜å‚¨çš„string */
 	vector<vector<string>> str_vector;
 
-	/** enum×ªstring */
+	/** enumè½¬string */
 	map<Enum_Patent, string> enum_to_string;
 
-	/** ´æ´¢µÄËùÓĞÊı¾İ */
+	/** å­˜å‚¨çš„æ‰€æœ‰æ•°æ® */
 	vector<shared_ptr<Patent_Data_S>> patent_all_data;
 
 	/**----------- D -------------*/
 
-	/** ´æ´¢µÄËùÓĞÊı¾İ */
+	/** å­˜å‚¨çš„æ‰€æœ‰æ•°æ® */
 	map<Enum_Patent,vector<shared_ptr<Base_Struct>>> vector_base_struct_num;
 
-	/** ×ÜµÄtransfer½á¹¹ÌåÊı¾İ */
+	/** æ€»çš„transferç»“æ„ä½“æ•°æ® */
 	map<Enum_Patent,shared_ptr<Transfer_Data>> transfer_all_data;
 
 private:
 	/**----------- R -------------*/
 
-	/** ¾­¹ıRÖµÉ¸Ñ¡ºóµÄDÖµtransfer½á¹¹ÌåÊı¾İ */
+	/** ç»è¿‡Rå€¼ç­›é€‰åçš„Då€¼transferç»“æ„ä½“æ•°æ® */
 	map<Enum_Patent, shared_ptr<Transfer_Data>> transfer_after_data;
 
-	/** ´óÓÚ0.7 É¸Ñ¡Ê£ÏÂµÄÖ¸±ê */
+	/** å¤§äº0.7 ç­›é€‰å‰©ä¸‹çš„æŒ‡æ ‡ */
 	vector<Enum_Patent> selected_enum_patent;
-	/** È¥µôµÄÖ¸±ê */
+	/** å»æ‰çš„æŒ‡æ ‡ */
 	vector<Enum_Patent> pass_selected_enum_patent;
 
-	/** ´æ´¢µÄËùÓĞÃ¶¾ÙÖµ */
+	/** å­˜å‚¨çš„æ‰€æœ‰æšä¸¾å€¼ */
 	vector<Enum_Patent> all_enum_patent;
 
-	/** ³õÊ¼»¯Èº±àºÅÊıÖµ */
+	/** åˆå§‹åŒ–ç¾¤ç¼–å·æ•°å€¼ */
 	const double temp_num_init = 1000.0f;
 
-	/** ¸÷ÏîÖ¸±êµÄ¾ùÖµ */
+	/** å„é¡¹æŒ‡æ ‡çš„å‡å€¼ */
 	map<Enum_Patent, double> R_average;
 
-	/**-------- RÖµ ------*/
-	/** ¸÷ÏîÊı¾İµÄRÖµ ¼¼ÊõÀà */
+	/**-------- Rå€¼ ------*/
+	/** å„é¡¹æ•°æ®çš„Rå€¼ æŠ€æœ¯ç±» */
 	vector<RValueCL> R_value_Technology;
-	/** ¸÷ÏîÊı¾İµÄRÖµ ÒıÖ¤Àà */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ å¼•è¯ç±» */
 	vector<RValueCL> R_value_Citation;
-	/** ¸÷ÏîÊı¾İµÄRÖµ IPC */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ IPC */
 	vector<RValueCL> R_value_IPC;
-	/** ¸÷ÏîÊı¾İµÄRÖµ ¹ú¼Ê»¯ */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ å›½é™…åŒ– */
 	vector<RValueCL> R_value_Internationalization;
-	/** ¸÷ÏîÊı¾İµÄRÖµ Ê±¼ä */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ æ—¶é—´ */
 	vector<RValueCL> R_value_Time;
-	/** ¸÷ÏîÊı¾İµÄRÖµ È¨ÀûÀà */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ æƒåˆ©ç±» */
 	vector<RValueCL> R_value_Right;
-	/** ¸÷ÏîÊı¾İµÄRÖµ ·¢Ã÷ÈË ÉêÇëÈË */
+	/** å„é¡¹æ•°æ®çš„Rå€¼ å‘æ˜äºº ç”³è¯·äºº */
 	vector<RValueCL> R_value_Inventor;
 
 private:
 	/**----------- Z -------------*/
-	/** É¸Ñ¡ºóµÄWÖµ  ÓÃÀ´¼ÆËãÃ»ÓĞÈ¥µôÖ¸±êµÄZÖµ */
+	/** ç­›é€‰åçš„Wå€¼  ç”¨æ¥è®¡ç®—æ²¡æœ‰å»æ‰æŒ‡æ ‡çš„Zå€¼ */
 	map<Enum_Patent, double> w_data_fifter_for_z;
-	/** É¸Ñ¡ºóµÄWÖµ Ë³ĞòÈ¥µôÖ¸±ê */
+	/** ç­›é€‰åçš„Wå€¼ é¡ºåºå»æ‰æŒ‡æ ‡ */
 	map<Enum_Patent, map<Enum_Patent, double>> w_data_fifter_for_all;
 
 
-	/** É¸Ñ¡ºóZµÄ×ÜÖµ£¬ Ã»ÓĞÈ¥µôÖ¸±ê */
+	/** ç­›é€‰åZçš„æ€»å€¼ï¼Œ æ²¡æœ‰å»æ‰æŒ‡æ ‡ */
 	vector<shared_ptr<Base_Struct>> Z_fifter_full_vector;
-	/** É¸Ñ¡ºóµÄ ×ÜµÄZÖµ Ë³ĞòÈ¥µôÖ¸±ê */
+	/** ç­›é€‰åçš„ æ€»çš„Zå€¼ é¡ºåºå»æ‰æŒ‡æ ‡ */
 	map<Enum_Patent, vector<shared_ptr<Base_Struct>>> Z_fifter_delete_vector;
 
-	/** ×ÜµÄZÖµ½á¹¹ÌåÊı¾İ */
+	/** æ€»çš„Zå€¼ç»“æ„ä½“æ•°æ® */
 	shared_ptr<Transfer_Data> Z_fifter_full_transfer;
-	/** ×ÜµÄZÖµ½á¹¹ÌåÊı¾İ Ë³ĞòÈ¥µôÖ¸±ê */
+	/** æ€»çš„Zå€¼ç»“æ„ä½“æ•°æ® é¡ºåºå»æ‰æŒ‡æ ‡ */
 	map<Enum_Patent,shared_ptr<Transfer_Data>> Z_fifter_delete_transfer;
 
-	/** ÖÕÖ¹Ñ­»· */
+	/** ç»ˆæ­¢å¾ªç¯ */
 	bool end_ok;
 
 	/** json */
 	Json::Value json_root;
+
+	/** ä¸´æ—¶ä½¿ç”¨ */
+	Json::Value temp_r_json;
 };
 

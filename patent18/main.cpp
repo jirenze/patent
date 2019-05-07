@@ -1,12 +1,11 @@
-#include "patent.h"
+ï»¿#include "patent.h"
 
 int main()
 {
 	Patent patent;
 
-	/** ¶ÁÈ¡csvÎÄ¼ş */
+	/** è¯»å–csvæ–‡ä»¶ */
 	patent.ReadCSV();
-
 	/***/
 	patent.ManageD();
 

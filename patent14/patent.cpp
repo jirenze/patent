@@ -1,4 +1,4 @@
-#include "patent.h"
+ï»¿#include "patent.h"
 
 Patent::Patent()
 	:end_ok(true)
@@ -8,12 +8,12 @@ Patent::Patent()
 
 void Patent::ReadCSV()
 {
-	/** ´ò¿ªÎÄ¼ş */
+	/** æ‰“å¼€æ–‡ä»¶ */
 
-	ifstream in_file("E:\\development\\patent\\patent14\\patentok14.csv", ios::in);
+	ifstream in_file("E:\\development\\patent\\patent14\\patentdelete14.csv", ios::in);
 	string temp_line_str;
 
-	/** ¼ì²âÄÜ·ñ´ò¿ª */
+	/** æ£€æµ‹èƒ½å¦æ‰“å¼€ */
 	if (!in_file.is_open())
 	{
 		cout << "Notice! the file is loaded unsuccessfully!" << endl;
@@ -26,7 +26,7 @@ void Patent::ReadCSV()
 
 	while (getline(in_file, temp_line_str))
 	{
-		/** ´æ³É¶şÎ¬½á¹¹ */
+		/** å­˜æˆäºŒç»´ç»“æ„ */
 		stringstream ss(temp_line_str);
 		string str;
 		vector<string> line_vector;
@@ -41,7 +41,7 @@ void Patent::ReadCSV()
 
 void Patent::WriteJson()
 {
-	/** Ğ´ÎÄ¼ş */
+	/** å†™æ–‡ä»¶ */
 	Json::StreamWriterBuilder stream_w_builder;
 	shared_ptr<Json::StreamWriter> stream_writer(stream_w_builder.newStreamWriter());
 
@@ -53,34 +53,34 @@ void Patent::WriteJson()
 
 void Patent::ManageD()
 {
-	/** ´¦ÀíÊı¾İ£¬½á¹¹ÌåĞ´Èë */
+	/** å¤„ç†æ•°æ®ï¼Œç»“æ„ä½“å†™å…¥ */
 	PickCSVData();
 
-	/** Ğ´Èë¸÷×ÔµÄ½á¹¹Ìå */
+	/** å†™å…¥å„è‡ªçš„ç»“æ„ä½“ */
 	PickEveStruct();
 
-	/** Ã¶¾Ù×ª»» */
+	/** æšä¸¾è½¬æ¢ */
 	EnumToString();
 
-	/** ÅÅĞò */
+	/** æ’åº */
 	SortForEveVector();
 
-	/** ÀÛ¼ÓEVE */
+	/** ç´¯åŠ EVE */
 	TransferOfAccumulation();
 
-	/** ¼ÆËã²îÖµDÖµ */
+	/** è®¡ç®—å·®å€¼Då€¼ */
 	CalculateDifference();
 }
 
 void Patent::ManageR()
 {
-	/** ¼ÆËã¸÷ÏîÖ¸±êµÄ¾ùÖµ */
+	/** è®¡ç®—å„é¡¹æŒ‡æ ‡çš„å‡å€¼ */
 	CalculateAverage();
 
-	/** ¼ÆËãRÖµ */
+	/** è®¡ç®—Rå€¼ */
 	CalculateRValue();
 
-	/** É¸Ñ¡RÖµ */
+	/** ç­›é€‰Rå€¼ */
 	SelectRvalue();
 }
 
@@ -88,13 +88,13 @@ void Patent::ManageIndex()
 {
 	while (end_ok)
 	{
-		/** ¼ÆËãW */
+		/** è®¡ç®—W */
 		CalculateIndexForW();
 
-		/** Ñ­»·´¦Àí³ıµô1¸öÖ¸±êºóµÄZÖµ¼ÆËãÊı¾İ½á¹¹ */
+		/** å¾ªç¯å¤„ç†é™¤æ‰1ä¸ªæŒ‡æ ‡åçš„Zå€¼è®¡ç®—æ•°æ®ç»“æ„ */
 		CalculateZFifter();
 
-		/** ÅĞ¶Ï */
+		/** åˆ¤æ–­ */
 		LeftoverIndex();
 	}
 
@@ -106,22 +106,22 @@ void Patent::PickCSVData()
 	for (auto& str_line : str_vector)
 	{
 		shared_ptr<Patent_Data_S> temp_patent_data = make_shared<Patent_Data_S>();
-		/** 0 ĞòºÅ */
+		/** 0 åºå· */
 		int str_index = 0;
 
-		/** 0 ÎÄÏ×ºÅ */
+		/** 0 æ–‡çŒ®å· */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_patent_data->literature;
 		++str_index;
 		ss_stream.clear();
 
-		/** 1 ÊÇ·ñ×ªÈÃ */
+		/** 1 æ˜¯å¦è½¬è®© */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_patent_data->transfer;
 		++str_index;
 		ss_stream.clear();
 
-		/** 2 ËµÃ÷ÊéÒ³Êı */
+		/** 2 è¯´æ˜ä¹¦é¡µæ•° */
 		ss_stream << str_line[str_index];
 		double temp_double = 0.0;
 		ss_stream >> temp_double;
@@ -130,7 +130,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 3 ¸½Í¼¸öÊı */
+		/** 3 é™„å›¾ä¸ªæ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_image_num, temp_double));
@@ -138,7 +138,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 4 ÎÄÏ×ÒıÖ¤Êı */
+		/** 4 æ–‡çŒ®å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_non_patent_citation_num, temp_double));
@@ -146,7 +146,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 5 ×¨ÀûÒıÖ¤Êı */
+		/** 5 ä¸“åˆ©å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_num, temp_double));
@@ -154,7 +154,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 6 ÒıÖ¤±¾¹ú×¨ÀûÊı*/
+		/** 6 å¼•è¯æœ¬å›½ä¸“åˆ©æ•°*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_of_domestic_num, temp_double));
@@ -162,7 +162,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 7 ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+		/** 7 å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_of_foreign_num, temp_double));
@@ -170,7 +170,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 8 ×¨Àû±»ÒıÖ¤Êı */
+		/** 8 ä¸“åˆ©è¢«å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_cited_num, temp_double));
@@ -178,7 +178,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 9 ±»±¾¹ú×¨ÀûÒıÖ¤Êı */
+		/** 9 è¢«æœ¬å›½ä¸“åˆ©å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_cited_of_domestic_num, temp_double));
@@ -186,7 +186,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 10 ±»Íâ¹ú×¨ÀûÒıÖ¤Êı */
+		/** 10 è¢«å¤–å›½ä¸“åˆ©å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_cited_of_foreign_num, temp_double));
@@ -194,7 +194,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 11 5ÄêÄÚ±»ÒıÖ¤Êı */
+		/** 11 5å¹´å†…è¢«å¼•è¯æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_citation_cited_of_five_year, temp_double));
@@ -202,7 +202,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 12 ×¨ÀûÀà±ğ */
+		/** 12 ä¸“åˆ©ç±»åˆ« */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_patent_type, temp_double));
@@ -210,7 +210,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 13 ±£»¤ÆÚ */
+		/** 13 ä¿æŠ¤æœŸ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_term_of_patent_protection, temp_double));
@@ -218,7 +218,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 14 ·ÖÀàÊı */
+		/** 14 åˆ†ç±»æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_classify_num, temp_double));
@@ -226,7 +226,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 15 IPC´óÀàÊı */
+		/** 15 IPCå¤§ç±»æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_IPC_large_classify_num, temp_double));
@@ -234,7 +234,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 16 IPCĞ¡ÀàÊı */
+		/** 16 IPCå°ç±»æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_IPC_sub_classify_num, temp_double));
@@ -242,7 +242,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 17 Í¬×å×¨ÀûÊı */
+		/** 17 åŒæ—ä¸“åˆ©æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_kin_num, temp_double));
@@ -250,7 +250,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 18 Í¬×å²¼¾Ö¹ú¼Ò¡¢µØÇøÊı */
+		/** 18 åŒæ—å¸ƒå±€å›½å®¶ã€åœ°åŒºæ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_kin_of_country_num, temp_double));
@@ -258,7 +258,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 19 ÊÇ·ñÎªPCTÉêÇë */
+		/** 19 æ˜¯å¦ä¸ºPCTç”³è¯· */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_PCT_apply, temp_double));
@@ -266,7 +266,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 20 ÊÇ·ñÎªÎå¹ú×¨Àû/ËÄ·½×¨Àû */
+		/** 20 æ˜¯å¦ä¸ºäº”å›½ä¸“åˆ©/å››æ–¹ä¸“åˆ© */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_five_four_countries_patent, temp_double));
@@ -274,7 +274,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 21 ×¨Àû¹ú±ğ´úÂë */
+		/** 21 ä¸“åˆ©å›½åˆ«ä»£ç  */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_country_code, temp_double));
@@ -282,7 +282,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 22 ÉêÇëÈÕ¹«¿ªÈÕÊ±¼ä¼ä¸ô£¨Äê£©*/
+		/** 22 ç”³è¯·æ—¥å…¬å¼€æ—¥æ—¶é—´é—´éš”ï¼ˆå¹´ï¼‰*/
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_application_open_day_interval, temp_double));
@@ -290,7 +290,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 23 ÉêÇëÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô */
+		/** 23 ç”³è¯·æ—¥æˆæƒæ—¥æ—¶é—´é—´éš” */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_application_authorization_day_interval, temp_double));
@@ -298,7 +298,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 24 ¹«¿ªÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô */
+		/** 24 å…¬å¼€æ—¥æˆæƒæ—¥æ—¶é—´é—´éš” */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_open_authorization_day_interval, temp_double));
@@ -306,7 +306,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 25 ´æ»îÆÚ */
+		/** 25 å­˜æ´»æœŸ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_survival_time, temp_double));
@@ -314,7 +314,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 26 ÊÇ·ñÓĞÓÅÏÈÈ¨ */
+		/** 26 æ˜¯å¦æœ‰ä¼˜å…ˆæƒ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_prority, temp_double));
@@ -322,7 +322,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 27 È¨ÏîÊı */
+		/** 27 æƒé¡¹æ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_right_num, temp_double));
@@ -330,7 +330,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 28 ÊÇ·ñĞè½»×¨Àû·Ñ */
+		/** 28 æ˜¯å¦éœ€äº¤ä¸“åˆ©è´¹ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_renewal_of_patent_fees, temp_double));
@@ -338,7 +338,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 29 ÊÇ·ñÖÊÑº */
+		/** 29 æ˜¯å¦è´¨æŠ¼ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_pledge, temp_double));
@@ -346,7 +346,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 30 ÊÇ·ñ¸´Éó */
+		/** 30 æ˜¯å¦å¤å®¡ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_review, temp_double));
@@ -354,7 +354,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 31 ·¢Ã÷ÈËÊı */
+		/** 31 å‘æ˜äººæ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_num_of_invention, temp_double));
@@ -362,7 +362,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 32 ÉêÇëÈËÊı */
+		/** 32 ç”³è¯·äººæ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_num_of_application, temp_double));
@@ -370,7 +370,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 33 µ±Ç°×¨ÀûÈ¨ÈËÊı */
+		/** 33 å½“å‰ä¸“åˆ©æƒäººæ•° */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_current_num_of_patent, temp_double));
@@ -378,7 +378,7 @@ void Patent::PickCSVData()
 		ss_stream.clear();
 		temp_double = 0.0;
 
-		/** 34 ÉêÇëÈËÀàĞÍ */
+		/** 34 ç”³è¯·äººç±»å‹ */
 		ss_stream << str_line[str_index];
 		ss_stream >> temp_double;
 		temp_patent_data->all_patent_data_S_num.insert(make_pair(Enum_Patent::E_type_of_application, temp_double));
@@ -390,12 +390,20 @@ void Patent::PickCSVData()
 	}
 }
 
+void Patent::AddEnumPatent()
+{
+	for (int i = 2; i < 35; ++i)
+	{
+		all_enum_patent.push_back(static_cast<Enum_Patent>(i));
+	}
+}
+
 void Patent::PickEveStruct()
 {
 	AddEnumPatent();
 	for (auto& enum_patent : all_enum_patent)
 	{
-		/** ËµÃ÷ÊéÒ³Êı */
+		/** è¯´æ˜ä¹¦é¡µæ•° */
 		vector<shared_ptr<Base_Struct>> vector_enum_num;
 		for (auto& patent_data : patent_all_data)
 		{
@@ -403,7 +411,7 @@ void Patent::PickEveStruct()
 			temp_enum_num->literature = patent_data->literature;
 			temp_enum_num->transfer = patent_data->transfer;
 			temp_enum_num->num_of_feature = patent_data->all_patent_data_S_num[enum_patent];
-			/** ËµÃ÷ÊéÒ³Êı */
+			/** è¯´æ˜ä¹¦é¡µæ•° */
 			vector_enum_num.push_back(temp_enum_num);
 		}
 		vector_base_struct_num.insert(make_pair(enum_patent, vector_enum_num));
@@ -436,7 +444,7 @@ void Patent::EnumToString()
 	enum_to_string.insert(make_pair(E_application_open_day_interval, "application_open_day_interval"));
 	enum_to_string.insert(make_pair(E_application_authorization_day_interval, "application_authorization_day_interval"));
 	enum_to_string.insert(make_pair(E_open_authorization_day_interval, "open_authorization_day_interval"));
-	enum_to_string.insert(make_pair(E_survival_time, "survival_time"));
+	enum_to_string.insert(make_pair(E_survival_time, "survial_time"));
 	enum_to_string.insert(make_pair(E_prority, "prority"));
 	enum_to_string.insert(make_pair(E_right_num, "right_num"));
 	enum_to_string.insert(make_pair(E_renewal_of_patent_fees, "renewal_of_patent_fees"));
@@ -469,7 +477,7 @@ void Patent::TransferOfAccumulation()
 {
 	for (auto& vector_base_struct : vector_base_struct_num)
 	{
-		/** ×ªÈÃ´ÎÊı£¬Îª×ªÈÃ´ÎÊı */
+		/** è½¬è®©æ¬¡æ•°ï¼Œä¸ºè½¬è®©æ¬¡æ•° */
 		double transfer_add_index = 0.0;
 		double untransfer_add_index = 0.0;
 		double temp_num = temp_num_init;
@@ -478,33 +486,33 @@ void Patent::TransferOfAccumulation()
 
 		for (auto& instruction : vector_base_struct.second)
 		{
-			/** Í¬Ò»×¨ÀûÈº */
+			/** åŒä¸€ä¸“åˆ©ç¾¤ */
 			if (temp_num == instruction->num_of_feature)
 			{
-				/** Èç¹û×ªÈÃ */
+				/** å¦‚æœè½¬è®© */
 				if (instruction->transfer == 1)
 				{
 					++transfer_add_index;
 				}
-				/** Èç¹ûÎ´×ªÈÃ */
+				/** å¦‚æœæœªè½¬è®© */
 				if (instruction->transfer == 0)
 				{
 					++untransfer_add_index;
 				}
 				continue;
 			}
-			/** ²»Í¬×¨ÀûÈº */
+			/** ä¸åŒä¸“åˆ©ç¾¤ */
 			else
 			{
 				instruction_num_transfer->transfer_add_index.push_back(transfer_add_index);
 				instruction_num_transfer->untransfer_add_index.push_back(untransfer_add_index);
 
-				/** Èç¹û×ªÈÃ */
+				/** å¦‚æœè½¬è®© */
 				if (instruction->transfer == 1)
 				{
 					++transfer_add_index;
 				}
-				/** Èç¹ûÎ´×ªÈÃ */
+				/** å¦‚æœæœªè½¬è®© */
 				if (instruction->transfer == 0)
 				{
 					++untransfer_add_index;
@@ -514,10 +522,10 @@ void Patent::TransferOfAccumulation()
 			}
 		}
 
-		/** ×îºóÒ»´ÎµÄ */
+		/** æœ€åä¸€æ¬¡çš„ */
 		instruction_num_transfer->transfer_add_index.push_back(transfer_add_index);
 		instruction_num_transfer->untransfer_add_index.push_back(untransfer_add_index);
-		/** ×Ü¹²µÄ×¨Àû×ªÈÃºÍÎª×ªÈÃ´ÎÊı */
+		/** æ€»å…±çš„ä¸“åˆ©è½¬è®©å’Œä¸ºè½¬è®©æ¬¡æ•° */
 		instruction_num_transfer->transfer_num = double(transfer_add_index);
 		instruction_num_transfer->untransfer_num = double(untransfer_add_index);
 		transfer_all_data.insert(make_pair(vector_base_struct.first, instruction_num_transfer));
@@ -526,10 +534,10 @@ void Patent::TransferOfAccumulation()
 
 void Patent::CalculateDifference()
 {
-	/** ×î´ó²îÖµ */
+	/** æœ€å¤§å·®å€¼ */
 	double temp_transfer_difference = 0.0;
 	Json::Value Difference_json;
-	/** Ã¿Ò»ÏîÖ¸±ê */
+	/** æ¯ä¸€é¡¹æŒ‡æ ‡ */
 	for (auto& transfer_type_data : transfer_all_data)
 	{
 		for (int i = 0; i < transfer_type_data.second->transfer_add_index.size(); i++)
@@ -543,11 +551,11 @@ void Patent::CalculateDifference()
 			}
 		}
 
-		/** ÇóµÄ×î´ó²îÖµ */
+		/** æ±‚çš„æœ€å¤§å·®å€¼ */
 		transfer_type_data.second->first_max_d = temp_transfer_difference;
 		Difference_json[enum_to_string[transfer_type_data.first]] = temp_transfer_difference;
 
-		/** ÖØĞÂ³õÊ¼»¯ */
+		/** é‡æ–°åˆå§‹åŒ– */
 		temp_transfer_difference = 0.0;
 	}
 
@@ -571,157 +579,159 @@ void Patent::CalculateAverage()
 
 void Patent::CalculateRValue()
 {
-	/**------------- ¼¼ÊõÀà ---------*/
-	/** ËµÃ÷ÊéÒ³Êı  ¸½Í¼¸öÊı */
+	/**------------- æŠ€æœ¯ç±» ---------*/
+	/** è¯´æ˜ä¹¦é¡µæ•°  é™„å›¾ä¸ªæ•° */
 	CalculateRValueM(E_instruction_num, E_image_num, R_value_Technology);
-	/** ËµÃ÷ÊéÒ³Êı  ÎÄÏ×ÒıÖ¤Êı */
+	/** è¯´æ˜ä¹¦é¡µæ•°  æ–‡çŒ®å¼•è¯æ•° */
 	CalculateRValueM(E_instruction_num, E_non_patent_citation_num, R_value_Technology);
-	/** ËµÃ÷ÊéÒ³Êı  ×¨ÀûÒıÖ¤Êı */
+	/** è¯´æ˜ä¹¦é¡µæ•°  ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_instruction_num, E_citation_num, R_value_Technology);
-	/** ËµÃ÷ÊéÒ³Êı  ÒıÖ¤±¾¹ú×¨ÀûÊı */
+	/** è¯´æ˜ä¹¦é¡µæ•°  å¼•è¯æœ¬å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_instruction_num, E_citation_of_domestic_num, R_value_Technology);
-	/** ËµÃ÷ÊéÒ³Êı  ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+	/** è¯´æ˜ä¹¦é¡µæ•°  å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_instruction_num, E_citation_of_foreign_num, R_value_Technology);
-	/** ¸½Í¼¸öÊı  ÎÄÏ×ÒıÖ¤Êı */
+	/** é™„å›¾ä¸ªæ•°  æ–‡çŒ®å¼•è¯æ•° */
 	CalculateRValueM(E_image_num, E_non_patent_citation_num, R_value_Technology);
-	/** ¸½Í¼¸öÊı  ×¨ÀûÒıÖ¤Êı */
+	/** é™„å›¾ä¸ªæ•°  ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_image_num, E_citation_num, R_value_Technology);
-	/** ¸½Í¼¸öÊı  ÒıÖ¤±¾¹ú×¨ÀûÊı */
+	/** é™„å›¾ä¸ªæ•°  å¼•è¯æœ¬å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_image_num, E_citation_of_domestic_num, R_value_Technology);
-	/** ¸½Í¼¸öÊı  ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+	/** é™„å›¾ä¸ªæ•°  å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_image_num, E_citation_of_foreign_num, R_value_Technology);
-	/** ÎÄÏ×ÒıÖ¤Êı  ×¨ÀûÒıÖ¤Êı */
+	/** æ–‡çŒ®å¼•è¯æ•°  ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_non_patent_citation_num, E_citation_num, R_value_Technology);
-	/** ÎÄÏ×ÒıÖ¤Êı  ÒıÖ¤±¾¹ú×¨ÀûÊı */
+	/** æ–‡çŒ®å¼•è¯æ•°  å¼•è¯æœ¬å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_non_patent_citation_num, E_citation_of_domestic_num, R_value_Technology);
-	/** ÎÄÏ×ÒıÖ¤Êı  ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+	/** æ–‡çŒ®å¼•è¯æ•°  å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_non_patent_citation_num, E_citation_of_foreign_num, R_value_Technology);
-	/** ×¨ÀûÒıÖ¤Êı  ÒıÖ¤±¾¹ú×¨ÀûÊı */
+	/** ä¸“åˆ©å¼•è¯æ•°  å¼•è¯æœ¬å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_citation_num, E_citation_of_domestic_num, R_value_Technology);
-	/** ×¨ÀûÒıÖ¤Êı  ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+	/** ä¸“åˆ©å¼•è¯æ•°  å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_citation_num, E_citation_of_foreign_num, R_value_Technology);
-	/** ÒıÖ¤±¾¹ú×¨ÀûÊı  ÒıÖ¤Íâ¹ú×¨ÀûÊı */
+	/** å¼•è¯æœ¬å›½ä¸“åˆ©æ•°  å¼•è¯å¤–å›½ä¸“åˆ©æ•° */
 	CalculateRValueM(E_citation_of_domestic_num, E_citation_of_foreign_num, R_value_Technology);
 
-	/**------------- ÒıÖ¤Àà ---------*/
-	/** ×¨Àû±»ÒıÖ¤Êı  ±»±¾¹ú×¨ÀûÒıÖ¤Êı */
+	/**------------- å¼•è¯ç±» ---------*/
+	/** ä¸“åˆ©è¢«å¼•è¯æ•°  è¢«æœ¬å›½ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_num, E_citation_cited_of_domestic_num, R_value_Citation);
-	/** ×¨Àû±»ÒıÖ¤Êı  ±»Íâ¹ú×¨ÀûÒıÖ¤Êı */
+	/** ä¸“åˆ©è¢«å¼•è¯æ•°  è¢«å¤–å›½ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_num, E_citation_cited_of_foreign_num, R_value_Citation);
-	/** ×¨Àû±»ÒıÖ¤Êı  5ÄêÄÚ±»ÒıÖ¤Êı */
+	/** ä¸“åˆ©è¢«å¼•è¯æ•°  5å¹´å†…è¢«å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_num, E_citation_cited_of_five_year, R_value_Citation);
 
-	/** ±»±¾¹ú×¨ÀûÒıÖ¤Êı  ±»Íâ¹ú×¨ÀûÒıÖ¤Êı */
+	/** è¢«æœ¬å›½ä¸“åˆ©å¼•è¯æ•°  è¢«å¤–å›½ä¸“åˆ©å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_of_domestic_num, E_citation_cited_of_foreign_num, R_value_Citation);
-	/** ±»±¾¹ú×¨ÀûÒıÖ¤Êı  5ÄêÄÚ±»ÒıÖ¤Êı */
+	/** è¢«æœ¬å›½ä¸“åˆ©å¼•è¯æ•°  5å¹´å†…è¢«å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_of_domestic_num, E_citation_cited_of_five_year, R_value_Citation);
 
-	/** ±»Íâ¹ú×¨ÀûÒıÖ¤Êı  5ÄêÄÚ±»ÒıÖ¤Êı */
+	/** è¢«å¤–å›½ä¸“åˆ©å¼•è¯æ•°  5å¹´å†…è¢«å¼•è¯æ•° */
 	CalculateRValueM(E_citation_cited_of_foreign_num, E_citation_cited_of_five_year, R_value_Citation);
 
-	/**------------ IPCÀà -------------------*/
-	/** ×¨ÀûÀà±ğ  ±£»¤ÆÚ */
+	/**------------ IPCç±» -------------------*/
+	/** ä¸“åˆ©ç±»åˆ«  ä¿æŠ¤æœŸ */
 	CalculateRValueM(E_patent_type, E_term_of_patent_protection, R_value_IPC);
-	/** ×¨ÀûÀà±ğ  ·ÖÀàÊı */
+	/** ä¸“åˆ©ç±»åˆ«  åˆ†ç±»æ•° */
 	CalculateRValueM(E_patent_type, E_classify_num, R_value_IPC);
-	/** ×¨ÀûÀà±ğ  IPC´óÀàÊı */
+	/** ä¸“åˆ©ç±»åˆ«  IPCå¤§ç±»æ•° */
 	CalculateRValueM(E_patent_type, E_IPC_large_classify_num, R_value_IPC);
-	/** ×¨ÀûÀà±ğ  IPCĞ¡ÀàÊı */
+	/** ä¸“åˆ©ç±»åˆ«  IPCå°ç±»æ•° */
 	CalculateRValueM(E_patent_type, E_IPC_sub_classify_num, R_value_IPC);
-	/** ×¨ÀûÀà±ğ  Í¬×å×¨ÀûÊı */
+	/** ä¸“åˆ©ç±»åˆ«  åŒæ—ä¸“åˆ©æ•° */
 	CalculateRValueM(E_patent_type, E_kin_num, R_value_IPC);
 
-	/** ±£»¤ÆÚ  ·ÖÀàÊı */
+	/** ä¿æŠ¤æœŸ  åˆ†ç±»æ•° */
 	CalculateRValueM(E_term_of_patent_protection, E_classify_num, R_value_IPC);
-	/** ±£»¤ÆÚ  IPC´óÀàÊı */
+	/** ä¿æŠ¤æœŸ  IPCå¤§ç±»æ•° */
 	CalculateRValueM(E_term_of_patent_protection, E_IPC_large_classify_num, R_value_IPC);
-	/** ±£»¤ÆÚ  IPCĞ¡ÀàÊı  */
+	/** ä¿æŠ¤æœŸ  IPCå°ç±»æ•°  */
 	CalculateRValueM(E_term_of_patent_protection, E_IPC_sub_classify_num, R_value_IPC);
-	/** ±£»¤ÆÚ  Í¬×å×¨ÀûÊı */
+	/** ä¿æŠ¤æœŸ  åŒæ—ä¸“åˆ©æ•° */
 	CalculateRValueM(E_term_of_patent_protection, E_kin_num, R_value_IPC);
 
-	/** ·ÖÀàÊı  IPC´óÀàÊı */
+	/** åˆ†ç±»æ•°  IPCå¤§ç±»æ•° */
 	CalculateRValueM(E_classify_num, E_IPC_large_classify_num, R_value_IPC);
-	/** ·ÖÀàÊı  IPCĞ¡ÀàÊı */
+	/** åˆ†ç±»æ•°  IPCå°ç±»æ•° */
 	CalculateRValueM(E_classify_num, E_IPC_sub_classify_num, R_value_IPC);
-	/** ·ÖÀàÊı  Í¬×å×¨ÀûÊı */
+	/** åˆ†ç±»æ•°  åŒæ—ä¸“åˆ©æ•° */
 	CalculateRValueM(E_classify_num, E_kin_num, R_value_IPC);
-	/**  IPC´óÀàÊı   IPCĞ¡ÀàÊı  */
+	/**  IPCå¤§ç±»æ•°   IPCå°ç±»æ•°  */
 	CalculateRValueM(E_IPC_large_classify_num, E_IPC_sub_classify_num, R_value_IPC);
-	/**  IPC´óÀàÊı  Í¬×å×¨ÀûÊı */
+	/**  IPCå¤§ç±»æ•°  åŒæ—ä¸“åˆ©æ•° */
 	CalculateRValueM(E_IPC_large_classify_num, E_kin_num, R_value_IPC);
-	/**  IPCĞ¡ÀàÊı   Í¬×å×¨ÀûÊı  */
+	/**  IPCå°ç±»æ•°   åŒæ—ä¸“åˆ©æ•°  */
 	CalculateRValueM(E_IPC_sub_classify_num, E_kin_num, R_value_IPC);
 
-	/**------------ ¹ú¼Ê»¯ -------------------*/
-	/** Í¬×å²¼¾Ö¹ú¼Ò¡¢µØÇøÊı ÊÇ·ñÎªPCTÉêÇë */
+	/**------------ å›½é™…åŒ– -------------------*/
+	/** åŒæ—å¸ƒå±€å›½å®¶ã€åœ°åŒºæ•° æ˜¯å¦ä¸ºPCTç”³è¯· */
 	CalculateRValueM(E_kin_of_country_num, E_PCT_apply, R_value_Internationalization);
-	/** Í¬×å²¼¾Ö¹ú¼Ò¡¢µØÇøÊı ÊÇ·ñÎªÎå¹ú×¨Àû/ËÄ·½×¨Àû */
+	/** åŒæ—å¸ƒå±€å›½å®¶ã€åœ°åŒºæ•° æ˜¯å¦ä¸ºäº”å›½ä¸“åˆ©/å››æ–¹ä¸“åˆ© */
 	CalculateRValueM(E_kin_of_country_num, E_five_four_countries_patent, R_value_Internationalization);
-	/** Í¬×å²¼¾Ö¹ú¼Ò¡¢µØÇøÊı ×¨Àû¹ú±ğ´úÂë */
+	/** åŒæ—å¸ƒå±€å›½å®¶ã€åœ°åŒºæ•° ä¸“åˆ©å›½åˆ«ä»£ç  */
 	CalculateRValueM(E_kin_of_country_num, E_country_code, R_value_Internationalization);
-	/** ÊÇ·ñÎªPCTÉêÇë ÊÇ·ñÎªÎå¹ú×¨Àû/ËÄ·½×¨Àû */
+	/** æ˜¯å¦ä¸ºPCTç”³è¯· æ˜¯å¦ä¸ºäº”å›½ä¸“åˆ©/å››æ–¹ä¸“åˆ© */
 	CalculateRValueM(E_PCT_apply, E_five_four_countries_patent, R_value_Internationalization);
-	/** ÊÇ·ñÎªPCTÉêÇë ÊÇ·ñÎªPCTÉêÇë */
+	/** æ˜¯å¦ä¸ºPCTç”³è¯· æ˜¯å¦ä¸ºPCTç”³è¯· */
 	CalculateRValueM(E_PCT_apply, E_country_code, R_value_Internationalization);
-	/** ÊÇ·ñÎªÎå¹ú×¨Àû/ËÄ·½×¨Àû ×¨Àû¹ú±ğ´úÂë */
+	/** æ˜¯å¦ä¸ºäº”å›½ä¸“åˆ©/å››æ–¹ä¸“åˆ© ä¸“åˆ©å›½åˆ«ä»£ç  */
 	CalculateRValueM(E_five_four_countries_patent, E_country_code, R_value_Internationalization);
 
 
-	/**------------ Ê±¼ä -------------------*/
-	/** ÉêÇëÈÕ¹«¿ªÈÕÊ±¼ä¼ä¸ô£¨Äê£©  ÉêÇëÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô */
+	/**------------ æ—¶é—´ -------------------*/
+	/** ç”³è¯·æ—¥å…¬å¼€æ—¥æ—¶é—´é—´éš”ï¼ˆå¹´ï¼‰  ç”³è¯·æ—¥æˆæƒæ—¥æ—¶é—´é—´éš” */
 	CalculateRValueM(E_application_open_day_interval, E_application_authorization_day_interval, R_value_Time);
-	/** ÉêÇëÈÕ¹«¿ªÈÕÊ±¼ä¼ä¸ô£¨Äê£©  ¹«¿ªÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô */
+	/** ç”³è¯·æ—¥å…¬å¼€æ—¥æ—¶é—´é—´éš”ï¼ˆå¹´ï¼‰  å…¬å¼€æ—¥æˆæƒæ—¥æ—¶é—´é—´éš” */
 	CalculateRValueM(E_application_open_day_interval, E_open_authorization_day_interval, R_value_Time);
-	/** ÉêÇëÈÕ¹«¿ªÈÕÊ±¼ä¼ä¸ô£¨Äê£©  Ê£ÓàÓĞĞ§ÆÚ */
+	/** ç”³è¯·æ—¥å…¬å¼€æ—¥æ—¶é—´é—´éš”ï¼ˆå¹´ï¼‰  å‰©ä½™æœ‰æ•ˆæœŸ */
 	CalculateRValueM(E_application_open_day_interval, E_survival_time, R_value_Time);
-	/** ÉêÇëÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô  ¹«¿ªÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô */
+	/** ç”³è¯·æ—¥æˆæƒæ—¥æ—¶é—´é—´éš”  å…¬å¼€æ—¥æˆæƒæ—¥æ—¶é—´é—´éš” */
 	CalculateRValueM(E_application_authorization_day_interval, E_open_authorization_day_interval, R_value_Time);
-	/** ÉêÇëÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô  Ê£ÓàÓĞĞ§ÆÚ */
+	/** ç”³è¯·æ—¥æˆæƒæ—¥æ—¶é—´é—´éš”  å‰©ä½™æœ‰æ•ˆæœŸ */
 	CalculateRValueM(E_application_authorization_day_interval, E_survival_time, R_value_Time);
-	/** ¹«¿ªÈÕÊÚÈ¨ÈÕÊ±¼ä¼ä¸ô  Ê£ÓàÓĞĞ§ÆÚ */
+	/** å…¬å¼€æ—¥æˆæƒæ—¥æ—¶é—´é—´éš”  å‰©ä½™æœ‰æ•ˆæœŸ */
 	CalculateRValueM(E_open_authorization_day_interval, E_survival_time, R_value_Time);
 
-	/**------------ È¨ÀûÀà -------------------*/
-	/** ÊÇ·ñÓĞÓÅÏÈÈ¨  È¨ÏîÊı */
+	/**------------ æƒåˆ©ç±» -------------------*/
+	/** æ˜¯å¦æœ‰ä¼˜å…ˆæƒ  æƒé¡¹æ•° */
 	CalculateRValueM(E_prority, E_right_num, R_value_Right);
-	/** ÊÇ·ñÓĞÓÅÏÈÈ¨  ÊÇ·ñĞè½»×¨Àû·Ñ */
+	/** æ˜¯å¦æœ‰ä¼˜å…ˆæƒ  æ˜¯å¦éœ€äº¤ä¸“åˆ©è´¹ */
 	CalculateRValueM(E_prority, E_renewal_of_patent_fees, R_value_Right);
-	/** ÊÇ·ñÓĞÓÅÏÈÈ¨  ÊÇ·ñÖÊÑº */
+	/** æ˜¯å¦æœ‰ä¼˜å…ˆæƒ  æ˜¯å¦è´¨æŠ¼ */
 	CalculateRValueM(E_prority, E_pledge, R_value_Right);
-	/** ÊÇ·ñÓĞÓÅÏÈÈ¨  ÊÇ·ñ¸´Éó */
+	/** æ˜¯å¦æœ‰ä¼˜å…ˆæƒ  æ˜¯å¦å¤å®¡ */
 	CalculateRValueM(E_prority, E_review, R_value_Right);
 
-	/** È¨ÏîÊı  ÊÇ·ñĞè½»×¨Àû·Ñ */
+	/** æƒé¡¹æ•°  æ˜¯å¦éœ€äº¤ä¸“åˆ©è´¹ */
 	CalculateRValueM(E_right_num, E_renewal_of_patent_fees, R_value_Right);
-	/** È¨ÏîÊı  ÊÇ·ñÖÊÑº */
+	/** æƒé¡¹æ•°  æ˜¯å¦è´¨æŠ¼ */
 	CalculateRValueM(E_right_num, E_pledge, R_value_Right);
-	/** È¨ÏîÊı  ÊÇ·ñ¸´Éó */
+	/** æƒé¡¹æ•°  æ˜¯å¦å¤å®¡ */
 	CalculateRValueM(E_right_num, E_review, R_value_Right);
 
-	/** ÊÇ·ñĞè½»×¨Àû·Ñ  ÊÇ·ñÖÊÑº */
+	/** æ˜¯å¦éœ€äº¤ä¸“åˆ©è´¹  æ˜¯å¦è´¨æŠ¼ */
 	CalculateRValueM(E_renewal_of_patent_fees, E_pledge, R_value_Right);
-	/** ÊÇ·ñĞè½»×¨Àû·Ñ  ÊÇ·ñ¸´Éó */
+	/** æ˜¯å¦éœ€äº¤ä¸“åˆ©è´¹  æ˜¯å¦å¤å®¡ */
 	CalculateRValueM(E_renewal_of_patent_fees, E_review, R_value_Right);
 
-	/** ÊÇ·ñÖÊÑº  ÊÇ·ñ¸´Éó */
+	/** æ˜¯å¦è´¨æŠ¼  æ˜¯å¦å¤å®¡ */
 	CalculateRValueM(E_pledge, E_review, R_value_Right);
 
-	/**------------ ·¢Ã÷ÈË ÉêÇëÈË -------------------*/
-	/** ·¢Ã÷ÈËÊı  ÉêÇëÈËÊı */
+	/**------------ å‘æ˜äºº ç”³è¯·äºº -------------------*/
+	/** å‘æ˜äººæ•°  ç”³è¯·äººæ•° */
 	CalculateRValueM(E_num_of_invention, E_num_of_application, R_value_Inventor);
-	/** ·¢Ã÷ÈËÊı  ×¨ÀûÈ¨ÈË¹æÄ£ */
+	/** å‘æ˜äººæ•°  ä¸“åˆ©æƒäººè§„æ¨¡ */
 	CalculateRValueM(E_num_of_invention, E_current_num_of_patent, R_value_Inventor);
-	/** ·¢Ã÷ÈËÊı  ÉêÇëÈËÀàĞÍ */
+	/** å‘æ˜äººæ•°  ç”³è¯·äººç±»å‹ */
 	CalculateRValueM(E_num_of_invention, E_type_of_application, R_value_Inventor);
 
-	/** ÉêÇëÈËÊı  ×¨ÀûÈ¨ÈË¹æÄ£ */
+	/** ç”³è¯·äººæ•°  ä¸“åˆ©æƒäººè§„æ¨¡ */
 	CalculateRValueM(E_num_of_application, E_current_num_of_patent, R_value_Inventor);
-	/** ÉêÇëÈËÊı  ÉêÇëÈËÀàĞÍ */
+	/** ç”³è¯·äººæ•°  ç”³è¯·äººç±»å‹ */
 	CalculateRValueM(E_num_of_application, E_type_of_application, R_value_Inventor);
 
-	/** ×¨ÀûÈ¨ÈË¹æÄ£  ÉêÇëÈËÀàĞÍ */
+	/** ä¸“åˆ©æƒäººè§„æ¨¡  ç”³è¯·äººç±»å‹ */
 	CalculateRValueM(E_current_num_of_patent, E_type_of_application, R_value_Inventor);
+
+	json_root["R_index"].append(temp_r_json);
 }
 void Patent::CalculateRValueM(Enum_Patent in_enum_first, Enum_Patent in_enum_second, vector<RValueCL>& in_R_value)
 {
@@ -744,6 +754,8 @@ void Patent::CalculateRValueM(Enum_Patent in_enum_first, Enum_Patent in_enum_sec
 	temp_r_valueCL.second_value = in_enum_second;
 	temp_r_valueCL.r_value = molecule / sqrt(denominator_first * denominator_second);
 	in_R_value.push_back(temp_r_valueCL);
+
+	temp_r_json[enum_to_string[in_enum_first] + " | " + enum_to_string[in_enum_second]] = temp_r_valueCL.r_value;
 }
 
 void Patent::SelectRvalueM(vector<RValueCL>& in_R_value)
@@ -758,18 +770,10 @@ void Patent::SelectRvalueM(vector<RValueCL>& in_R_value)
 	}
 }
 
-void Patent::AddEnumPatent()
-{
-	for (int i = 2; i < 28; ++i)
-	{
-		all_enum_patent.push_back(static_cast<Enum_Patent>(i));
-	}
-}
-
 void Patent::SelectRafterD()
 {
 	Json::Value RafterD;
-	/** ×ÜµÄtransfer½á¹¹ÌåÊı¾İ */
+	/** æ€»çš„transferç»“æ„ä½“æ•°æ® */
 	for (auto& temp_select_num : selected_enum_patent)
 	{
 		RafterD.append(enum_to_string[temp_select_num]);
@@ -788,7 +792,7 @@ void Patent::SelectRvalue()
 	SelectRvalueM(R_value_Right);
 	SelectRvalueM(R_value_Inventor);
 
-	/** È¥ÖØ */
+	/** å»é‡ */
 	set<Enum_Patent> temp_set(selected_enum_patent.begin(), selected_enum_patent.end());
 	selected_enum_patent.assign(temp_set.begin(), temp_set.end());
 
@@ -875,7 +879,7 @@ void Patent::CalculateZValueFull(vector<Enum_Patent>& in_selected_enum_patent, v
 		in_Z_fifter_full_vector.push_back(temp_once_patent_Z);
 	}
 
-	/** ½µĞòÅÅÁĞZÖµ */
+	/** é™åºæ’åˆ—Zå€¼ */
 	for (int i = 0; i < in_Z_fifter_full_vector.size() - 1; ++i)
 	{
 		for (int j = 0; j < in_Z_fifter_full_vector.size() - i - 1; ++j)
@@ -910,7 +914,7 @@ void Patent::CalculateZValueDelete(vector<Enum_Patent>& in_selected_enum_patent,
 			temp_Z_total_vector.push_back(temp_once_patent_Z);
 		}
 
-		/** ½µĞòÅÅÁĞZÖµ */
+		/** é™åºæ’åˆ—Zå€¼ */
 		for (int i = 0; i < temp_Z_total_vector.size() - 1; ++i)
 		{
 			for (int j = 0; j < temp_Z_total_vector.size() - i - 1; ++j)
@@ -927,7 +931,7 @@ void Patent::CalculateZValueDelete(vector<Enum_Patent>& in_selected_enum_patent,
 
 void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_full_vector, shared_ptr<Transfer_Data>& in_Z_fifter_full_transfer)
 {
-	/** ×ªÈÃ´ÎÊı£¬Îª×ªÈÃ´ÎÊı */
+	/** è½¬è®©æ¬¡æ•°ï¼Œä¸ºè½¬è®©æ¬¡æ•° */
 	double transfer_add_index = 0.0;
 	double untransfer_add_index = 0.0;
 	double temp_num = temp_num_init;
@@ -935,33 +939,33 @@ void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_f
 	in_Z_fifter_full_transfer = make_shared<Transfer_Data>();
 	for (auto& temp_z_total : in_Z_fifter_full_vector)
 	{
-		/** Í¬Ò»×¨ÀûÈº */
+		/** åŒä¸€ä¸“åˆ©ç¾¤ */
 		if (temp_num == temp_z_total->num_of_feature)
 		{
-			/** Èç¹û×ªÈÃ */
+			/** å¦‚æœè½¬è®© */
 			if (temp_z_total->transfer == 1)
 			{
 				++transfer_add_index;
 			}
-			/** Èç¹ûÎ´×ªÈÃ */
+			/** å¦‚æœæœªè½¬è®© */
 			if (temp_z_total->transfer == 0)
 			{
 				++untransfer_add_index;
 			}
 			continue;
 		}
-		/** ²»Í¬×¨ÀûÈº */
+		/** ä¸åŒä¸“åˆ©ç¾¤ */
 		else
 		{
 			in_Z_fifter_full_transfer->transfer_add_index.push_back(transfer_add_index);
 			in_Z_fifter_full_transfer->untransfer_add_index.push_back(untransfer_add_index);
 
-			/** Èç¹û×ªÈÃ */
+			/** å¦‚æœè½¬è®© */
 			if (temp_z_total->transfer == 1)
 			{
 				++transfer_add_index;
 			}
-			/** Èç¹ûÎ´×ªÈÃ */
+			/** å¦‚æœæœªè½¬è®© */
 			if (temp_z_total->transfer == 0)
 			{
 				++untransfer_add_index;
@@ -971,17 +975,17 @@ void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_f
 		}
 	}
 
-	/** ×îºóÒ»´ÎµÄ */
+	/** æœ€åä¸€æ¬¡çš„ */
 	in_Z_fifter_full_transfer->transfer_add_index.push_back(transfer_add_index);
 	in_Z_fifter_full_transfer->untransfer_add_index.push_back(untransfer_add_index);
-	/** ×Ü¹²µÄ×¨Àû×ªÈÃºÍÎª×ªÈÃ´ÎÊı */
+	/** æ€»å…±çš„ä¸“åˆ©è½¬è®©å’Œä¸ºè½¬è®©æ¬¡æ•° */
 	in_Z_fifter_full_transfer->transfer_num = double(transfer_add_index);
 	in_Z_fifter_full_transfer->untransfer_num = double(untransfer_add_index);
 
-	/** ×î´ó²îÖµ */
+	/** æœ€å¤§å·®å€¼ */
 	double temp_transfer_difference = 0.0;
 
-	/** Ã¿Ò»ÏîÖ¸±ê */
+	/** æ¯ä¸€é¡¹æŒ‡æ ‡ */
 	for (int i = 0; i < in_Z_fifter_full_transfer->transfer_add_index.size(); i++)
 	{
 		double transfer_difference = in_Z_fifter_full_transfer->transfer_add_index[i] / in_Z_fifter_full_transfer->transfer_num
@@ -993,7 +997,7 @@ void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_f
 		}
 	}
 
-	/** ÇóµÄ×î´ó²îÖµ */
+	/** æ±‚çš„æœ€å¤§å·®å€¼ */
 	in_Z_fifter_full_transfer->first_max_d = temp_transfer_difference;
 }
 
@@ -1003,7 +1007,7 @@ void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>&
 	in_Z_fifter_delete_transfer.clear();
 	for (auto& Z_fifter_transfer_once : in_Z_fifter_delete_vector)
 	{
-		/** ×ªÈÃ´ÎÊı£¬Îª×ªÈÃ´ÎÊı */
+		/** è½¬è®©æ¬¡æ•°ï¼Œä¸ºè½¬è®©æ¬¡æ•° */
 		double transfer_add_index = 0.0;
 		double untransfer_add_index = 0.0;
 		double temp_num = temp_num_init;
@@ -1011,33 +1015,33 @@ void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>&
 		shared_ptr<Transfer_Data> temp_Z_transfer = make_shared<Transfer_Data>();
 		for (auto& temp_z_total : Z_fifter_transfer_once.second)
 		{
-			/** Í¬Ò»×¨ÀûÈº */
+			/** åŒä¸€ä¸“åˆ©ç¾¤ */
 			if (temp_num == temp_z_total->num_of_feature)
 			{
-				/** Èç¹û×ªÈÃ */
+				/** å¦‚æœè½¬è®© */
 				if (temp_z_total->transfer == 1)
 				{
 					++transfer_add_index;
 				}
-				/** Èç¹ûÎ´×ªÈÃ */
+				/** å¦‚æœæœªè½¬è®© */
 				if (temp_z_total->transfer == 0)
 				{
 					++untransfer_add_index;
 				}
 				continue;
 			}
-			/** ²»Í¬×¨ÀûÈº */
+			/** ä¸åŒä¸“åˆ©ç¾¤ */
 			else
 			{
 				temp_Z_transfer->transfer_add_index.push_back(transfer_add_index);
 				temp_Z_transfer->untransfer_add_index.push_back(untransfer_add_index);
 
-				/** Èç¹û×ªÈÃ */
+				/** å¦‚æœè½¬è®© */
 				if (temp_z_total->transfer == 1)
 				{
 					++transfer_add_index;
 				}
-				/** Èç¹ûÎ´×ªÈÃ */
+				/** å¦‚æœæœªè½¬è®© */
 				if (temp_z_total->transfer == 0)
 				{
 					++untransfer_add_index;
@@ -1047,17 +1051,17 @@ void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>&
 			}
 		}
 
-		/** ×îºóÒ»´ÎµÄ */
+		/** æœ€åä¸€æ¬¡çš„ */
 		temp_Z_transfer->transfer_add_index.push_back(transfer_add_index);
 		temp_Z_transfer->untransfer_add_index.push_back(untransfer_add_index);
-		/** ×Ü¹²µÄ×¨Àû×ªÈÃºÍÎª×ªÈÃ´ÎÊı */
+		/** æ€»å…±çš„ä¸“åˆ©è½¬è®©å’Œä¸ºè½¬è®©æ¬¡æ•° */
 		temp_Z_transfer->transfer_num = double(transfer_add_index);
 		temp_Z_transfer->untransfer_num = double(untransfer_add_index);
 
-		/** ×î´ó²îÖµ */
+		/** æœ€å¤§å·®å€¼ */
 		double temp_transfer_difference = 0.0;
 
-		/** Ã¿Ò»ÏîÖ¸±ê */
+		/** æ¯ä¸€é¡¹æŒ‡æ ‡ */
 
 		for (int i = 0; i < temp_Z_transfer->transfer_add_index.size(); i++)
 		{
@@ -1070,7 +1074,7 @@ void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>&
 			}
 		}
 
-		/** ÇóµÄ×î´ó²îÖµ */
+		/** æ±‚çš„æœ€å¤§å·®å€¼ */
 		temp_Z_transfer->first_max_d = temp_transfer_difference;
 		in_Z_fifter_delete_transfer.insert(make_pair(Z_fifter_transfer_once.first, temp_Z_transfer));
 	}
@@ -1078,7 +1082,7 @@ void Patent::CalculateZtotalDDelete(map<Enum_Patent, shared_ptr<Transfer_Data>>&
 
 void Patent::CalculateIndexForW()
 {
-	/** ´¦ÀíÑ­»·ºóµÄtransfer */
+	/** å¤„ç†å¾ªç¯åçš„transfer */
 	for (auto& temp_pass_selected_enum : pass_selected_enum_patent)
 	{
 		map<Enum_Patent, shared_ptr<Transfer_Data>>::iterator iter_transfer = transfer_after_data.find(temp_pass_selected_enum);
@@ -1088,23 +1092,23 @@ void Patent::CalculateIndexForW()
 		}
 	}
 
-	/** É¸Ñ¡ºóµÄWÖµ  ÓÃÀ´¼ÆËãÃ»ÓĞÈ¥µôÖ¸±êµÄZÖµ */
+	/** ç­›é€‰åçš„Wå€¼  ç”¨æ¥è®¡ç®—æ²¡æœ‰å»æ‰æŒ‡æ ‡çš„Zå€¼ */
 	CalculateWValueFull(w_data_fifter_for_z);
 
-	/** ¼ÆËãËùÓĞÖ¸±ê ³ıµôºóµÄW */
+	/** è®¡ç®—æ‰€æœ‰æŒ‡æ ‡ é™¤æ‰åçš„W */
 	CalculateWValueDelete(w_data_fifter_for_all);
 }
 
 void Patent::CalculateZFifter()
 {
-	/** ¼ÆËãZÖµ£¬È«Ö¸±ê */
+	/** è®¡ç®—Zå€¼ï¼Œå…¨æŒ‡æ ‡ */
 	CalculateZValueFull(selected_enum_patent, Z_fifter_full_vector, w_data_fifter_for_z);
-	/** ¼ÆËãÈ¥µô¹ıÖ¸±êµÄZÖµ */
+	/** è®¡ç®—å»æ‰è¿‡æŒ‡æ ‡çš„Zå€¼ */
 	CalculateZValueDelete(selected_enum_patent, Z_fifter_delete_vector, w_data_fifter_for_all);
 
-	/** ¼ÆËã×ÜµÄZ½á¹¹Ìå */
+	/** è®¡ç®—æ€»çš„Zç»“æ„ä½“ */
 	CalculateZtotalDFull(Z_fifter_full_vector, Z_fifter_full_transfer);
-	/** ¼ÆËãZ_totalµÄDÖµ£¬Ñ­»·Ö¸±ê */
+	/** è®¡ç®—Z_totalçš„Då€¼ï¼Œå¾ªç¯æŒ‡æ ‡ */
 	CalculateZtotalDDelete(Z_fifter_delete_transfer, Z_fifter_delete_vector);
 }
 

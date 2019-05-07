@@ -1,0 +1,206 @@
+{
+	"Difference" : 
+	{
+		"IPC_large_classify_num" : 0.81617492309276773,
+		"IPC_sub_classify_num" : 0.79391100702576112,
+		"PCT_apply" : 0.45199063231850117,
+		"application_authorization_day_interval" : 0.75670895258394866,
+		"application_open_day_interval" : 0.74896449505420448,
+		"citation_cited_num" : 0.78644193783835825,
+		"citation_cited_of_domestic_num" : 0.81861311744081389,
+		"citation_cited_of_five_year" : 0.78688524590163933,
+		"citation_cited_of_foreign_num" : 0.33021077283372363,
+		"citation_num" : 0.84227636451565235,
+		"citation_of_domestic_num" : 0.77985948477751754,
+		"citation_of_foreign_num" : 0.44496487119437939,
+		"classify_num" : 0.84175021605670752,
+		"country_code" : 0.6276346604215457,
+		"current_num_of_patent" : 0.38641686182669788,
+		"five_four_countries_patent" : 0.3044496487119438,
+		"image_num" : 0.83113768969331137,
+		"instruction_num" : 0.85245901639344257,
+		"kin_num" : 0.7822014051522248,
+		"kin_of_country_num" : 0.76580796252927397,
+		"non_patent_citation_num" : 0.5526932084309133,
+		"num_of_application" : 0.25526932084309134,
+		"num_of_invention" : 0.84705647923840566,
+		"open_authorization_day_interval" : 0.84079419311215686,
+		"patent_type" : 0.33815001723975802,
+		"pledge" : 0.10070257611241218,
+		"prority" : 0.70725995316159251,
+		"renewal_of_patent_fees" : 0.32763376484970064,
+		"review" : 0.023470699128160799,
+		"right_num" : 0.84074941451990637,
+		"survial_time" : 0.8301816667487607,
+		"term_of_patent_protection" : 0.33815001723975802,
+		"type_of_application" : 0.22940072809990997
+	},
+	"R_index" : 
+	[
+		{
+			"IPC_large_classify_num | IPC_sub_classify_num" : 0.87215447100233767,
+			"IPC_large_classify_num | kin_num" : 0.79311636116758821,
+			"IPC_sub_classify_num | kin_num" : 0.76108621245936448,
+			"PCT_apply | country_code" : 0.82337901867583441,
+			"PCT_apply | five_four_countries_patent" : 0.80123516236373582,
+			"application_authorization_day_interval | open_authorization_day_interval" : 0.96496046740302355,
+			"application_authorization_day_interval | survial_time" : 0.96273214381540118,
+			"application_open_day_interval | application_authorization_day_interval" : 0.93822071650444427,
+			"application_open_day_interval | open_authorization_day_interval" : 0.92829288399320398,
+			"application_open_day_interval | survial_time" : 0.89722725628300015,
+			"citation_cited_num | citation_cited_of_domestic_num" : 0.98796881341526788,
+			"citation_cited_num | citation_cited_of_five_year" : 0.98281889093878139,
+			"citation_cited_num | citation_cited_of_foreign_num" : 0.81400045225016104,
+			"citation_cited_of_domestic_num | citation_cited_of_five_year" : 0.97759585405823535,
+			"citation_cited_of_domestic_num | citation_cited_of_foreign_num" : 0.79745451906600151,
+			"citation_cited_of_foreign_num | citation_cited_of_five_year" : 0.81946849939119626,
+			"citation_num | citation_of_domestic_num" : 0.98151843445138276,
+			"citation_num | citation_of_foreign_num" : 0.898279892197972,
+			"citation_of_domestic_num | citation_of_foreign_num" : 0.92305356482906609,
+			"classify_num | IPC_large_classify_num" : 0.89804459893412303,
+			"classify_num | IPC_sub_classify_num" : 0.94880972267138752,
+			"classify_num | kin_num" : 0.86635336392415629,
+			"current_num_of_patent | type_of_application" : 0.1467166714019561,
+			"five_four_countries_patent | country_code" : 0.65972022171561184,
+			"image_num | citation_num" : 0.8763249115295314,
+			"image_num | citation_of_domestic_num" : 0.88513564824797331,
+			"image_num | citation_of_foreign_num" : 0.91483823614447668,
+			"image_num | non_patent_citation_num" : 0.91421696901552307,
+			"instruction_num | citation_num" : 0.89968202836147981,
+			"instruction_num | citation_of_domestic_num" : 0.9163031588042474,
+			"instruction_num | citation_of_foreign_num" : 0.96228352104013981,
+			"instruction_num | image_num" : 0.97568903371837501,
+			"instruction_num | non_patent_citation_num" : 0.96422881828732043,
+			"kin_of_country_num | PCT_apply" : 0.8741779313474799,
+			"kin_of_country_num | country_code" : 0.85989031982621733,
+			"kin_of_country_num | five_four_countries_patent" : 0.85266150294962983,
+			"non_patent_citation_num | citation_num" : 0.92415005405797623,
+			"non_patent_citation_num | citation_of_domestic_num" : 0.94597689098437987,
+			"non_patent_citation_num | citation_of_foreign_num" : 0.96938223351029529,
+			"num_of_application | current_num_of_patent" : 0.8579985237426232,
+			"num_of_application | type_of_application" : 0.11320883593933542,
+			"num_of_invention | current_num_of_patent" : 0.82018552202336581,
+			"num_of_invention | num_of_application" : 0.75567169326751171,
+			"num_of_invention | type_of_application" : 0.40443116177065164,
+			"open_authorization_day_interval | survial_time" : 0.94945051394263225,
+			"patent_type | IPC_large_classify_num" : 0.36321309071748892,
+			"patent_type | IPC_sub_classify_num" : 0.54034082745774814,
+			"patent_type | classify_num" : 0.54126758516763573,
+			"patent_type | kin_num" : 0.22223602501926179,
+			"patent_type | term_of_patent_protection" : 0.99999999999999978,
+			"pledge | review" : 0.024138556817475634,
+			"prority | pledge" : 0.34146106073699312,
+			"prority | renewal_of_patent_fees" : 0.40296148270076804,
+			"prority | review" : 0.070691975141690955,
+			"prority | right_num" : 0.64920254449714909,
+			"renewal_of_patent_fees | pledge" : 0.43296724102358281,
+			"renewal_of_patent_fees | review" : 0.21627011967537116,
+			"right_num | pledge" : 0.8182889878907077,
+			"right_num | renewal_of_patent_fees" : 0.59357001150788746,
+			"right_num | review" : 0.084735476057816825,
+			"term_of_patent_protection | IPC_large_classify_num" : 0.36321309071748892,
+			"term_of_patent_protection | IPC_sub_classify_num" : 0.54034082745774803,
+			"term_of_patent_protection | classify_num" : 0.54126758516763562,
+			"term_of_patent_protection | kin_num" : 0.2222360250192621
+		}
+	],
+	"r_after_d_index" : 
+	[
+		"citation_of_foreign_num",
+		"citation_cited_of_foreign_num",
+		"patent_type",
+		"kin_num",
+		"five_four_countries_patent",
+		"application_open_day_interval",
+		"prority",
+		"renewal_of_patent_fees",
+		"pledge",
+		"review",
+		"num_of_application",
+		"type_of_application"
+	],
+	"z_fifter" : 
+	[
+		{
+			"z_enum_after" : 
+			[
+				"citation_of_foreign_num",
+				"citation_cited_of_foreign_num",
+				"patent_type",
+				"kin_num",
+				"five_four_countries_patent",
+				"application_open_day_interval",
+				"prority",
+				"renewal_of_patent_fees",
+				"pledge",
+				"review",
+				"num_of_application"
+			],
+			"z_max_delete" : 0.31466812346353457,
+			"z_max_full" : 0.29493195892907514
+		},
+		{
+			"z_enum_after" : 
+			[
+				"citation_of_foreign_num",
+				"citation_cited_of_foreign_num",
+				"patent_type",
+				"kin_num",
+				"five_four_countries_patent",
+				"application_open_day_interval",
+				"prority",
+				"renewal_of_patent_fees",
+				"review",
+				"num_of_application"
+			],
+			"z_max_delete" : 0.31858848921507604,
+			"z_max_full" : 0.31466812346353457
+		},
+		{
+			"z_enum_after" : 
+			[
+				"citation_cited_of_foreign_num",
+				"patent_type",
+				"kin_num",
+				"five_four_countries_patent",
+				"application_open_day_interval",
+				"prority",
+				"renewal_of_patent_fees",
+				"review",
+				"num_of_application"
+			],
+			"z_max_delete" : 0.32427984829012946,
+			"z_max_full" : 0.31858848921507604
+		},
+		{
+			"z_enum_after" : 
+			[
+				"citation_cited_of_foreign_num",
+				"patent_type",
+				"five_four_countries_patent",
+				"application_open_day_interval",
+				"prority",
+				"renewal_of_patent_fees",
+				"review",
+				"num_of_application"
+			],
+			"z_max_delete" : 0.32523587123468012,
+			"z_max_full" : 0.32427984829012946
+		},
+		{
+			"z_enum_after" : 
+			[
+				"citation_cited_of_foreign_num",
+				"patent_type",
+				"five_four_countries_patent",
+				"application_open_day_interval",
+				"prority",
+				"renewal_of_patent_fees",
+				"review",
+				"num_of_application"
+			],
+			"z_max_delete" : 0.32523587123468012,
+			"z_max_full" : 0.32523587123468012
+		}
+	]
+}
