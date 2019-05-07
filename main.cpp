@@ -1,21 +1,18 @@
 #include "patent.h"
-#include <iomanip>
 
 int main()
 {
 	Patent patent;
 
-	///** 读取csv文件 */
-	//patent.ReadCSV();
+	/** 读取csv文件 */
+	patent.ReadCSV();
 
-	///***/
-	//patent.ManageD();
+	/***/
+	patent.ManageD();
 
-	//patent.ManageR();
+	patent.ManageR();
 
-	////patent.ManageWZ();
-
-	//patent.ManageIndex();
+	patent.ManageIndex();
 
 	patent.WriteJson();
 

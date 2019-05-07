@@ -10,7 +10,7 @@ void Patent::ReadCSV()
 {
 	/** 打开文件 */
 
-	ifstream in_file("E:\\patent\\patentnow.csv", ios::in);
+	ifstream in_file("E:\\development\\patent\\patentok.csv", ios::in);
 	string temp_line_str;
 
 	/** 检测能否打开 */
@@ -42,19 +42,17 @@ void Patent::ReadCSV()
 void Patent::WriteJson()
 {
 	/** 写文件 */
-	json_root["great"] = Json::Value("great");
 	Json::StreamWriterBuilder stream_w_builder;
 	shared_ptr<Json::StreamWriter> stream_writer(stream_w_builder.newStreamWriter());
 
-
-	/*ofstream out_file;
+	ofstream out_file;
 	out_file.open("patent.json");
 	stream_writer->write(json_root, &out_file);
-	out_file.close();*/
-	ofstream out_file;
-	out_file.open("patent1.json");
-	out_file << json_root.toStyledString();
 	out_file.close();
+	//ofstream out_file;
+	//out_file.open("patent1.json");
+	//out_file << json_root.toStyledString();
+	//out_file.close();
 /*
 	ofstream os;
 
@@ -102,6 +100,9 @@ void Patent::ManageD()
 	/** 写入各自的结构体 */
 	PickEveStruct();
 
+	/** 枚举转换 */
+	EnumToString();
+
 	/** 排序 */
 	SortForEveVector();
 
@@ -122,18 +123,6 @@ void Patent::ManageR()
 
 	/** 筛选R值 */
 	SelectRvalue();
-}
-
-void Patent::ManageWZ()
-{
-	/** 计算W */
-	//CalculateWValueFull(w_data);
-
-	/** 计算Z */
-	//CalculateZValueFull(all_enum_patent,Z_total_vector);
-
-	/** 计算Z_total的D值 */
-	//CalculateZtotalDFull(Z_total_vector, Z_total_transfer);
 }
 
 void Patent::ManageIndex()
@@ -407,6 +396,37 @@ void Patent::PickEveStruct()
 	}
 }
 
+void Patent::EnumToString()
+{
+	enum_to_string.insert(make_pair(E_instruction_num, "instruction_num"));
+	enum_to_string.insert(make_pair(E_image_num, "image_num"));
+	enum_to_string.insert(make_pair(E_non_patent_citation_num, "non_patent_citation_num"));
+	enum_to_string.insert(make_pair(E_citation_num, "citation_num"));
+	enum_to_string.insert(make_pair(E_citation_of_domestic_num, "citation_of_domestic_num"));
+	enum_to_string.insert(make_pair(E_citation_of_foreign_num, "citation_of_foreign_num"));
+	enum_to_string.insert(make_pair(E_patent_type, "patent_type"));
+	enum_to_string.insert(make_pair(E_term_of_patent_protection, "term_of_patent_protection"));
+	enum_to_string.insert(make_pair(E_classify_num, "classify_num"));
+	enum_to_string.insert(make_pair(E_IPC_large_classify_num, "IPC_large_classify_num"));
+	enum_to_string.insert(make_pair(E_IPC_sub_classify_num, "IPC_sub_classify_num"));
+	enum_to_string.insert(make_pair(E_kin_num, "kin_num"));
+	enum_to_string.insert(make_pair(E_kin_of_country_num, "kin_of_country_num"));
+	enum_to_string.insert(make_pair(E_PCT_apply, "PCT_apply"));
+	enum_to_string.insert(make_pair(E_five_four_countries_patent, "five_four_countries_patent"));
+	enum_to_string.insert(make_pair(E_country_code, "country_code"));
+	enum_to_string.insert(make_pair(E_application_open_day_interval, "application_open_day_interval"));
+	enum_to_string.insert(make_pair(E_application_authorization_day_interval, "application_authorization_day_interval"));
+	enum_to_string.insert(make_pair(E_open_authorization_day_interval, "open_authorization_day_interval"));
+	enum_to_string.insert(make_pair(E_survival_time, "survival_time"));
+	enum_to_string.insert(make_pair(E_prority, "prority"));
+	enum_to_string.insert(make_pair(E_right_num, "right_num"));
+	enum_to_string.insert(make_pair(E_num_of_invention, "num_of_invention"));
+	enum_to_string.insert(make_pair(E_num_of_application, "num_of_application"));
+	enum_to_string.insert(make_pair(E_current_num_of_patent, "current_num_of_patent"));
+	enum_to_string.insert(make_pair(E_type_of_application, "type_of_application"));
+
+}
+
 void Patent::SortForEveVector()
 {
 	for (auto& vector_base_struct : vector_base_struct_num)
@@ -428,7 +448,6 @@ void Patent::TransferOfAccumulation()
 {
 	for (auto& vector_base_struct : vector_base_struct_num)
 	{
-		/**----------------------------- 说明书页数 ------------------------------*/
 		/** 转让次数，为转让次数 */
 		double transfer_add_index = 0.0;
 		double untransfer_add_index = 0.0;
@@ -488,7 +507,7 @@ void Patent::CalculateDifference()
 {
 	/** 最大差值 */
 	double temp_transfer_difference = 0.0;
-
+	Json::Value Difference_json;
 	/** 每一项指标 */
 	for (auto& transfer_type_data : transfer_all_data)
 	{
@@ -505,10 +524,13 @@ void Patent::CalculateDifference()
 
 		/** 求的最大差值 */
 		transfer_type_data.second->first_max_d = temp_transfer_difference;
+		Difference_json[enum_to_string[transfer_type_data.first]] = temp_transfer_difference;
 
 		/** 重新初始化 */
 		temp_transfer_difference = 0.0;
 	}
+
+	json_root["Difference"] = Difference_json;
 }
 
 void Patent::CalculateAverage()
@@ -686,11 +708,14 @@ void Patent::AddEnumPatent()
 
 void Patent::SelectRafterD()
 {
+	Json::Value RafterD;
 	/** 总的transfer结构体数据 */
 	for (auto& temp_select_num : selected_enum_patent)
 	{
+		RafterD.append(enum_to_string[temp_select_num]);
 		transfer_after_data.insert(make_pair(temp_select_num, transfer_all_data[temp_select_num]));
 	}
+	json_root["r_after_d_index"] = RafterD;
 }
 
 void Patent::SelectRvalue()
@@ -884,7 +909,7 @@ void Patent::CalculateZtotalDFull(vector<shared_ptr<Base_Struct>>& in_Z_fifter_f
 			temp_num = temp_z_total->num_of_feature;
 		}
 	}
-	
+
 	/** 最后一次的 */
 	in_Z_fifter_full_transfer->transfer_add_index.push_back(transfer_add_index);
 	in_Z_fifter_full_transfer->untransfer_add_index.push_back(untransfer_add_index);
@@ -1017,7 +1042,7 @@ void Patent::CalculateZFifter()
 	CalculateZValueDelete(selected_enum_patent, Z_fifter_delete_vector, w_data_fifter_for_all);
 
 	/** 计算总的Z结构体 */
-	CalculateZtotalDFull(Z_fifter_full_vector,Z_fifter_full_transfer);
+	CalculateZtotalDFull(Z_fifter_full_vector, Z_fifter_full_transfer);
 	/** 计算Z_total的D值，循环指标 */
 	CalculateZtotalDDelete(Z_fifter_delete_transfer, Z_fifter_delete_vector);
 }
@@ -1040,21 +1065,31 @@ void Patent::LeftoverIndex()
 	{
 		temp_end_ok = true;
 		pass_selected_enum_patent.push_back(temp_enum_max);
-	}
 
-	vector<Enum_Patent> temp_selected_enum_patent;
-	for (auto& temp_selected_next : selected_enum_patent)
-	{
-		if (temp_selected_next != temp_enum_max)
+		vector<Enum_Patent> temp_selected_enum_patent;
+		for (auto& temp_selected_next : selected_enum_patent)
 		{
-			temp_selected_enum_patent.push_back(temp_selected_next);
+			if (temp_selected_next != temp_enum_max)
+			{
+				temp_selected_enum_patent.push_back(temp_selected_next);
+			}
 		}
+		selected_enum_patent.clear();
+		selected_enum_patent = temp_selected_enum_patent;
 	}
-	selected_enum_patent.clear();
-	selected_enum_patent = temp_selected_enum_patent;
 
 	if (!temp_end_ok)
 	{
 		end_ok = temp_end_ok;
 	}
+
+	Json::Value Z_fifter_json;
+	Z_fifter_json["z_max_full"] = Z_fifter_full_transfer->first_max_d;
+	Z_fifter_json["z_max_delete"] = max_d_value;
+
+	for (auto& temp_selected_to_json : selected_enum_patent)
+	{
+		Z_fifter_json["z_enum_after"].append(enum_to_string[temp_selected_to_json]);
+	}
+	json_root["z_fifter"].append(Z_fifter_json);
 }
