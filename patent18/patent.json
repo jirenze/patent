@@ -1,0 +1,136 @@
+{
+	"Difference" : 
+	{
+		"IPC_large_classify_num" : 0.84569377990430628,
+		"IPC_sub_classify_num" : 0.95215311004784686,
+		"PCT_apply" : 0.27692307692307694,
+		"application_authorization_day_interval" : 0.97009569377990434,
+		"application_open_day_interval" : 0.92703349282296654,
+		"citation_num" : 0.96923076923076923,
+		"citation_of_domestic_num" : 0.97488038277511957,
+		"citation_of_foreign_num" : 0.94138755980861244,
+		"classify_num" : 0.98444976076555024,
+		"country_code" : 0.97846889952153115,
+		"current_num_of_patent" : 0.99521531100478466,
+		"five_four_countries_patent" : 0.24615384615384617,
+		"image_num" : 0.98803827751196172,
+		"instruction_num" : 0.99880382775119614,
+		"kin_num" : 0.99401913875598091,
+		"kin_of_country_num" : 1.0,
+		"non_patent_citation_num" : 0.91985645933014348,
+		"num_of_application" : 0.76923076923076927,
+		"num_of_invention" : 0.97846889952153115,
+		"open_authorization_day_interval" : 0.9856459330143541,
+		"patent_type" : 0.63636363636363635,
+		"prority" : 0.95813397129186606,
+		"right_num" : 0.99521531100478466,
+		"survival_time" : 0.9138755980861244,
+		"term_of_patent_protection" : 0.63636363636363635,
+		"type_of_application" : 0.15550239234449759
+	},
+	"r_after_d_index" : 
+	[
+		"non_patent_citation_num",
+		"patent_type",
+		"IPC_large_classify_num",
+		"five_four_countries_patent",
+		"country_code",
+		"survival_time",
+		"prority",
+		"right_num",
+		"num_of_invention",
+		"num_of_application",
+		"type_of_application"
+	],
+	"z_fifter" : 
+	[
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"IPC_large_classify_num",
+				"five_four_countries_patent",
+				"country_code",
+				"survival_time",
+				"prority",
+				"right_num",
+				"num_of_invention",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.53564593301435415,
+			"z_max_full" : 0.49769966875230037
+		},
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"five_four_countries_patent",
+				"country_code",
+				"survival_time",
+				"prority",
+				"right_num",
+				"num_of_invention",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.53836952521163051,
+			"z_max_full" : 0.53564593301435415
+		},
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"five_four_countries_patent",
+				"country_code",
+				"survival_time",
+				"prority",
+				"right_num",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.55288921604711083,
+			"z_max_full" : 0.53836952521163051
+		},
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"five_four_countries_patent",
+				"country_code",
+				"survival_time",
+				"right_num",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.55408538829591458,
+			"z_max_full" : 0.55288921604711083
+		},
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"five_four_countries_patent",
+				"survival_time",
+				"right_num",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.55920132499079866,
+			"z_max_full" : 0.55408538829591458
+		},
+		{
+			"z_enum_after" : 
+			[
+				"patent_type",
+				"five_four_countries_patent",
+				"survival_time",
+				"right_num",
+				"num_of_application",
+				"type_of_application"
+			],
+			"z_max_delete" : 0.55920132499079866,
+			"z_max_full" : 0.55920132499079866
+		}
+	]
+}
